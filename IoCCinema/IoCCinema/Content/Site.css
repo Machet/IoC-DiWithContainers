@@ -1,0 +1,56 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 30px
+}
+
+.body-content {
+    padding: 15px;
+}
+
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.movies a {
+    margin: 0 5px;
+}
+
+.screen {
+    width: 80%;
+    background-color: green;
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 60px auto;
+}
+
+.seatRow {
+    margin: 6px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.seat {
+    display: inline;
+    margin: 5px;
+}
+
+.seat button {
+    width: 50px;
+    background-color: #c5f8c5;
+}
+
+.seat button:hover {
+    background-color: #0dd50d;
+}
+.seat button:disabled {
+    background-color: #EEEEEE;
+}

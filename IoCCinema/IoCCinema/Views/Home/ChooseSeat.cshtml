@@ -1,0 +1,22 @@
+﻿@model IoCCinema.Business.DTO.RoomDTO
+@{
+    ViewBag.Title = "ChooseSeat";
+}
+
+<h2>Choose Seat</h2>
+<div class="screen">Screen</div>
+@using (@Html.BeginForm())
+{
+    foreach (var row in Enumerable.Range(1, Model.RowsOfSeats))
+    {
+        <div class="seatRow">
+            @foreach (var seat in Enumerable.Range(1, Model.SeatsPerRow))
+            {
+                var isTaken = Model.TakenSeats.Any(s => s.SeatNumber == seat && s.SeatRow == row);
+                <div class="seat">
+                    <button class="btn" @(isTaken ? "disabled='disabled'" : "")  name="seat" value="@(row + "_" + seat)" type="submit">@seat</button>
+                </div>
+            }
+        </div>
+    }
+}
