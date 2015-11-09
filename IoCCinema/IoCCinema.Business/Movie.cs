@@ -9,6 +9,6 @@ namespace IoCCinema.Business
 		public string Title { get; set; }
 		public string Description { get; set; }
 		public TimeSpan Length { get; set; }
-		public virtual List<MovieRoomRelation> RoomRelations { get; set; }
+		public virtual List<Seanse> Seanses { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using IoCCinema.Business;
 
-namespace IoCCinema.DataAccess.Repositories
+namespace IoCCinema.DataAccess.Business
 {
     public class EfUserRepository : IUserRepository
     {

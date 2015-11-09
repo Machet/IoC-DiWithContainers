@@ -1,12 +1,9 @@
-﻿using IoCCinema.Business.DTO;
-
-namespace IoCCinema.Business
+﻿namespace IoCCinema.Business
 {
     public interface IRoomRepository
     {
         void Add(SeatAssignment seatAssignment);
-        MovieRoomRelation GetRelation(int movieRoomRelationId);
-        SeatAssignment GetSeatAssignment(int movieRoomRelationId, int row, int seatNumber);
-        RoomDTO GetRoomByRelation(int movieRoomRelationId);
+        Seanse GetSeanse(int seanseId);
+        SeatAssignment GetSeatAssignment(int seanseId, int row, int seatNumber);
     }
 }

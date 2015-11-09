@@ -1,40 +1,45 @@
 ﻿using System;
 using System.Web.Mvc;
-
-using IoCCinema.Business;
+using IoCCinema.Presentation;
+using IoCCinema.Business.Commands;
 
 namespace IoCCinema.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly MovieService _movieService;
+        private readonly IHomeViewRepository _repository;
+        private readonly ICommandHandler<ReserveSeatCommand> _movieService;
 
-        public HomeController(MovieService service)
+        public HomeController(IHomeViewRepository repository, ICommandHandler<ReserveSeatCommand> service)
         {
+            _repository = repository;
             _movieService = service;
         }
 
         public ActionResult Index()
         {
-            return View(_movieService.GetMovies(DateTime.Now));
+            return View(_repository.GetMovies(DateTime.Now));
         }
 
         [HttpGet]
-        public ActionResult ChooseSeat(int movieRoomRelationId)
+        public ActionResult ChooseSeat(int seanseId)
         {
-            return View(_movieService.GetRoomByRelation(movieRoomRelationId));
+            return View(_repository.GetRoomBySeanse(seanseId));
         }
 
         [HttpPost]
-        public ActionResult ChooseSeat(int movieRoomRelationId, string seat)
+        public ActionResult ChooseSeat(int seanseId, string seat)
         {
             var seatPosition = seat.Split('_');
-            if (_movieService.ReserveSeat(1, movieRoomRelationId, int.Parse(seatPosition[0]), int.Parse(seatPosition[1])))
+            _movieService.Handle(new ReserveSeatCommand
             {
-                return RedirectToAction("SeatTaken");
-            }
+                UserId = 1,
+                SeanseId = seanseId,
+                SeatNumber = int.Parse(seatPosition[1]),
+                SeatRow = int.Parse(seatPosition[0])
+            });
 
-            return RedirectToAction("ChooseSeat", new { movieRoomRelationId });
+            return RedirectToAction("ChooseSeat", new { seanseId });
         }
 
         [HttpGet]

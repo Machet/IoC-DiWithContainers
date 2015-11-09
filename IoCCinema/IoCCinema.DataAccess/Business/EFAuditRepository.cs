@@ -1,6 +1,6 @@
 ﻿using IoCCinema.Business.AuditLogging;
 
-namespace IoCCinema.DataAccess.Repositories
+namespace IoCCinema.DataAccess.Business
 {
     public class EFAuditRepository : IAuditRepository
     {

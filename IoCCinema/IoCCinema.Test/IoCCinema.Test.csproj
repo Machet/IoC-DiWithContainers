@@ -56,7 +56,6 @@
   <ItemGroup>
     <Compile Include="DomainTimeScope.cs" />
     <Compile Include="FrozenDomainTime.cs" />
-    <Compile Include="MovieServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

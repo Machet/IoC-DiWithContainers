@@ -1,4 +1,4 @@
-﻿@model List<IoCCinema.Business.DTO.MovieDTO>
+﻿@model List<IoCCinema.Presentation.MovieDTO>
 @{
     ViewBag.Title = "Movie List";
 }
@@ -22,7 +22,7 @@
                 <td>
                     @foreach (var showTime in movie.ShowTimes)
                     {
-                        @Html.ActionLink(showTime.StartTime.ToString("hh':'mm"), "ChooseSeat", new { movieRoomRelationId = showTime.MovieRoomRelationId })
+                        @Html.ActionLink(showTime.StartTime.ToString("hh':'mm"), "ChooseSeat", new { seanseId = showTime.SeanseId })
                     }
                 </td>
             </tr>

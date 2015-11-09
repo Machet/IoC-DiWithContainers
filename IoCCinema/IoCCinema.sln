@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoCCinema.DataAccess", "IoC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoCCinema.Test", "IoCCinema.Test\IoCCinema.Test.csproj", "{5CE60EFE-F6DF-482A-8FA4-08DC00C2CE0D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoCCinema.Common", "IoCCinema.Common\IoCCinema.Common.csproj", "{6803928F-33CC-4BBA-823D-FAC57B03FBFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoCCinema.Presentation", "IoCCinema.Presentation\IoCCinema.Presentation.csproj", "{6C205623-6DCA-444C-8252-27A5E209CB2D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{5CE60EFE-F6DF-482A-8FA4-08DC00C2CE0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CE60EFE-F6DF-482A-8FA4-08DC00C2CE0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CE60EFE-F6DF-482A-8FA4-08DC00C2CE0D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6803928F-33CC-4BBA-823D-FAC57B03FBFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6803928F-33CC-4BBA-823D-FAC57B03FBFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6803928F-33CC-4BBA-823D-FAC57B03FBFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6803928F-33CC-4BBA-823D-FAC57B03FBFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C205623-6DCA-444C-8252-27A5E209CB2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C205623-6DCA-444C-8252-27A5E209CB2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C205623-6DCA-444C-8252-27A5E209CB2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C205623-6DCA-444C-8252-27A5E209CB2D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

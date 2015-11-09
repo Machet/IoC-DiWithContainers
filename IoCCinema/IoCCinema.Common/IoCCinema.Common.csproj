@@ -1,17 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0A08CA66-1253-4239-B6F5-9243027F5D7A}</ProjectGuid>
+    <ProjectGuid>{6803928F-33CC-4BBA-823D-FAC57B03FBFA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>IoCCinema.Business</RootNamespace>
-    <AssemblyName>IoCCinema.Business</AssemblyName>
+    <RootNamespace>IoCCinema.Common</RootNamespace>
+    <AssemblyName>IoCCinema.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,38 +36,16 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditLogging\AuditLogger.cs" />
-    <Compile Include="AuditLogging\IAuditRepository.cs" />
-    <Compile Include="Commands\ICommand.cs" />
-    <Compile Include="Commands\ICommandHandler.cs" />
-    <Compile Include="Commands\ReserveSeatCommand.cs" />
-    <Compile Include="DomainTime.cs" />
-    <Compile Include="AuditLogging\AuditLog.cs" />
-    <Compile Include="Notifications\IMailSender.cs" />
-    <Compile Include="Notifications\INotificationRepository.cs" />
-    <Compile Include="IRoomRepository.cs" />
-    <Compile Include="Notifications\ISmsSender.cs" />
-    <Compile Include="Notifications\ITemplateRepository.cs" />
-    <Compile Include="IUserRepository.cs" />
-    <Compile Include="Movie.cs" />
-    <Compile Include="Seanse.cs" />
-    <Compile Include="Notifications\MailSettings.cs" />
-    <Compile Include="Notifications\Notification.cs" />
-    <Compile Include="Notifications\SmsSettings.cs" />
-    <Compile Include="Room.cs" />
-    <Compile Include="SeatReservation.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="Notifications\ApplicationNotificationSender.cs" />
-    <Compile Include="Notifications\EmailNotificationSender.cs" />
-    <Compile Include="Notifications\INotificationSender.cs" />
-    <Compile Include="Commands\ReserveSeatCommandHandler.cs" />
+    <Compile Include="ICommand.cs" />
+    <Compile Include="ICommandHandler.cs" />
+    <Compile Include="IDomainEvent.cs" />
+    <Compile Include="IDomainEventHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Notifications\SmsNotificationSender.cs" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

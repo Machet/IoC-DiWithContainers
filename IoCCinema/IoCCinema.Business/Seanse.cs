@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace IoCCinema.Business
 {
-    public class MovieRoomRelation
+    public class Seanse
     {
-        public int MovieRoomRelationId { get; set; }
+        public int SeanseId { get; set; }
         public int MovieId { get; set; }
         public int RoomId { get; set; }
         public TimeSpan StartTime { get; set; }

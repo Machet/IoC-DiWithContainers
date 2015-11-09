@@ -9,8 +9,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PureCinema.DataAccess</RootNamespace>
     <AssemblyName>PureCinema.DataAccess</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -54,12 +55,12 @@
     <Compile Include="DbSetup\RoomSeed.cs" />
     <Compile Include="DbSetup\UsersSeed.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repositories\EFAuditRepository.cs" />
-    <Compile Include="Repositories\EfNotificationRepository.cs" />
-    <Compile Include="Repositories\EfRoomRepository.cs" />
-    <Compile Include="Repositories\EfTemplateRepository.cs" />
-    <Compile Include="Repositories\EfUserRepository.cs" />
-    <Compile Include="Repositories\EfMovieRepository.cs" />
+    <Compile Include="Business\EFAuditRepository.cs" />
+    <Compile Include="Business\EfNotificationRepository.cs" />
+    <Compile Include="Business\EfRoomRepository.cs" />
+    <Compile Include="Business\EfTemplateRepository.cs" />
+    <Compile Include="Business\EfUserRepository.cs" />
+    <Compile Include="Presentation\EfMovieViewRepository.cs" />
     <Compile Include="DbSetup\MovieSeed.cs" />
     <Compile Include="Sms\MyMobileSmsSender.cs" />
     <Compile Include="Smtp\NetMailSender.cs" />
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\IoCCinema.Business\IoCCinema.Business.csproj">
       <Project>{0a08ca66-1253-4239-b6f5-9243027f5d7a}</Project>
       <Name>PureCinema.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IoCCinema.Presentation\IoCCinema.Presentation.csproj">
+      <Project>{6c205623-6dca-444c-8252-27a5e209cb2d}</Project>
+      <Name>IoCCinema.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

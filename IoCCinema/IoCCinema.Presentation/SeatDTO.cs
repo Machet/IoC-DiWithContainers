@@ -1,4 +1,4 @@
-﻿namespace IoCCinema.Business.DTO
+﻿namespace IoCCinema.Presentation
 {
     public class SeatDTO
     {

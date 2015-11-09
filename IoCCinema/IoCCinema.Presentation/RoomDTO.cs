@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace IoCCinema.Business.DTO
+namespace IoCCinema.Presentation
 {
     public class RoomDTO
     {

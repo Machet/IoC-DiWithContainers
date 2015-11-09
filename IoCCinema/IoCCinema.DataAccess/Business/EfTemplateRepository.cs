@@ -1,6 +1,6 @@
 ﻿using IoCCinema.Business.Notifications;
 
-namespace IoCCinema.DataAccess.Repositories
+namespace IoCCinema.DataAccess.Business
 {
     public class EfTemplateRepository : ITemplateRepository
     {

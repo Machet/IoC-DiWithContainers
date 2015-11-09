@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace IoCCinema.Business.DTO
+namespace IoCCinema.Presentation
 {
     public class SeanseDTO
     {
-        public int MovieRoomRelationId { get; set; }
+        public int SeanseId { get; set; }
         public TimeSpan StartTime { get; set; }
     }
 }

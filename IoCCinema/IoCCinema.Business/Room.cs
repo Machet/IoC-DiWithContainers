@@ -8,6 +8,6 @@ namespace IoCCinema.Business
         public int RoomNumber { get; set; }
         public int SeatsPerRow { get; set; }
         public int RowsOfSeats { get; set; }
-        public virtual List<MovieRoomRelation> MovieRelations { get; set; }
+        public virtual List<Seanse> Seanses { get; set; }
     }
 }
