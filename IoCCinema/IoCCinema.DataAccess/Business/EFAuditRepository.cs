@@ -14,7 +14,6 @@ namespace IoCCinema.DataAccess.Business
         public void Add(AuditLog auditLog)
         {
             _context.AuditLogs.Add(auditLog);
-            _context.SaveChanges();
         }
     }
 }

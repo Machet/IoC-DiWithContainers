@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using IoCCinema.Business;
+using System;
 
 namespace IoCCinema.DataAccess.Business
 {
@@ -12,22 +13,17 @@ namespace IoCCinema.DataAccess.Business
             _context = context;
         }
 
-        public void Add(SeatAssignment seatAssignment)
-        {
-            _context.SeatAssignments.Add(seatAssignment);
-            _context.SaveChanges();
-        }
-
         public Seanse GetSeanse(int seanseId)
         {
-            return _context.Seanses
+            var seanse = _context.Seanses
                 .FirstOrDefault(r => r.SeanseId == seanseId);
-        }
 
-        public SeatAssignment GetSeatAssignment(int seanseId, int row, int seatNumber)
-        {
-            return _context.SeatAssignments
-                .FirstOrDefault(a => a.SeanseId == seanseId && a.Row == row && a.SeatNumber == seatNumber);
+            if (seanse == null)
+            {
+                throw new ArgumentException("Seanse doesn't exist");
+            }
+
+            return seanse;
         }
     }
 }

@@ -24,39 +24,8 @@ namespace IoCCinema.Business.Commands
         public void Handle(ReserveSeatCommand command)
         {
             Seanse seanse = _roomRepository.GetSeanse(command.SeanseId);
-
-            if (seanse == null)
-            {
-                throw new ArgumentException("Seanse doesn't exist");
-            }
-
-            if (seanse.StartTime < DomainTime.Current.Now.TimeOfDay)
-            {
-                throw new InvalidOperationException("Seanse already ended");
-            }
-
-            if (seanse.Room.SeatsPerRow < command.SeatRow || command.SeatRow <= 0)
-            {
-                throw new InvalidOperationException("This room doesn't have such row");
-            }
-
-            if (seanse.Room.SeatsPerRow < command.SeatNumber || command.SeatNumber <= 0)
-            {
-                throw new InvalidOperationException("This room doesn't have such seat");
-            }
-
-            if (_roomRepository.GetSeatAssignment(command.SeanseId, command.SeatRow, command.SeatNumber) != null)
-            {
-                throw new InvalidOperationException("Seat already taken");
-            }
-
-            _roomRepository.Add(new SeatAssignment
-            {
-                SeanseId = command.SeanseId,
-                Row = command.SeatRow,
-                SeatNumber = command.SeatNumber,
-                UserId = command.UserId
-            });
+            var seat = new Seat(command.SeatRow, command.SeatNumber);
+            seanse.ReserveSeatForUser(command.UserId, seat);
 
             foreach (var notifier in _notifiers)
             {

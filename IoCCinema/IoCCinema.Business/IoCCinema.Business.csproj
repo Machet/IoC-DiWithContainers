@@ -59,6 +59,7 @@
     <Compile Include="Notifications\Notification.cs" />
     <Compile Include="Notifications\SmsSettings.cs" />
     <Compile Include="Room.cs" />
+    <Compile Include="Seat.cs" />
     <Compile Include="SeatReservation.cs" />
     <Compile Include="User.cs" />
     <Compile Include="Notifications\ApplicationNotificationSender.cs" />

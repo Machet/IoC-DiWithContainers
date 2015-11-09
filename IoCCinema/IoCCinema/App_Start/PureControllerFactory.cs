@@ -1,5 +1,4 @@
-﻿using IoCCinema.Business;
-using IoCCinema.Business.AuditLogging;
+﻿using IoCCinema.Business.AuditLogging;
 using IoCCinema.Business.Commands;
 using IoCCinema.Business.Notifications;
 using IoCCinema.Controllers;
@@ -42,8 +41,9 @@ namespace IoCCinema
                     (userId) => new AuditLogger(userId, new EFAuditRepository(context));
 
                 var handler = new ReserveSeatCommandHandler(roomRepository, notifiers, loggerFactory);
+                var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(context, handler);
                 var movieRepository = new EFHomeViewRepository(context);
-                return new HomeController(movieRepository, handler);
+                return new HomeController(movieRepository, transactionalHandler);
             }
 
             return base.CreateController(requestContext, controllerName);

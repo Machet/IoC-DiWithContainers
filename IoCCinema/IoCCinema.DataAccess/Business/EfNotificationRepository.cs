@@ -14,7 +14,6 @@ namespace IoCCinema.DataAccess.Business
         public void Add(Notification notification)
         {
             _context.Notifications.Add(notification);
-            _context.SaveChanges();
         }
     }
 }
