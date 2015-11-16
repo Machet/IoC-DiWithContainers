@@ -2,7 +2,7 @@
 {
     public interface ITemplateRepository
     {
-        string GetPlainTextTemplate();
-        string GetHtmlTemplate();
+        string GetReservationPlainTextMessage(Seanse seanse, Seat seat);
+        string GetReservationHtmlMessage(Seanse seanse, Seat seat);
     }
 }

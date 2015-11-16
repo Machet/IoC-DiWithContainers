@@ -1,17 +1,26 @@
-﻿using IoCCinema.Business.Notifications;
+﻿using IoCCinema.Business;
+using IoCCinema.Business.Notifications;
 
 namespace IoCCinema.DataAccess.Business
 {
     public class EfTemplateRepository : ITemplateRepository
     {
-        public string GetHtmlTemplate()
+        public string GetReservationHtmlMessage(Seanse seanse, Seat seat)
         {
-            return "You have reserved seat <b>{1}</b> in row <b>{0}</b>";
+            return string.Format("You have reserved seat <b>{0}</b> in row <b>{1}</b> for '{2}' at {3}",
+                seat.SeatNumber,
+                seat.Row,
+                seanse.Movie.Title,
+                seanse.StartTime);
         }
 
-        public string GetPlainTextTemplate()
+        public string GetReservationPlainTextMessage(Seanse seanse, Seat seat)
         {
-            return "You have reserved seat {1} in row {0}";
+            return string.Format("You have reserved seat {0} in row {1} for '{2}' at {3}",
+                seat.SeatNumber,
+                seat.Row,
+                seanse.Movie.Title,
+                seanse.StartTime);
         }
     }
 }

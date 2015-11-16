@@ -1,4 +1,4 @@
-﻿namespace IoCCinema.Common
+﻿namespace IoCCinema.Business.DomainEvents
 {
     public interface IDomainEvent
     {

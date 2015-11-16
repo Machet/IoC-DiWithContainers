@@ -47,6 +47,13 @@ namespace IoCCinema.Business
                 SeatNumber = seat.SeatNumber,
                 UserId = userId
             });
+
+            DomainEventBus.Current.Raise(new SeatAssignedToUser
+            {
+                SeanseId = SeanseId,
+                UserId = userId,
+                Seat = seat
+            });
         }
     }
 }

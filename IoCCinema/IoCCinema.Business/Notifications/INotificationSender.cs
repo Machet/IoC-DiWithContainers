@@ -2,6 +2,6 @@
 {
     public interface INotificationSender
     {
-        void NotifyReservationReady(int userId, int row, int seatNumber);
+        void NotifyReservationReady(User user, Seanse seanse, Seat seat);
     }
 }

@@ -1,30 +1,31 @@
-﻿namespace IoCCinema.Business.Notifications
+﻿using System;
+
+namespace IoCCinema.Business.Notifications
 {
     public class EmailNotificationSender : INotificationSender
     {
-        private IMailSender _sender;
+        private INotificationRepository _notificationRepository;
         private ITemplateRepository _templateRepository;
-        private IUserRepository _userRepository;
 
-        public EmailNotificationSender(IMailSender mailSender, ITemplateRepository templateRepository, IUserRepository userRepository)
+        public EmailNotificationSender(INotificationRepository notificationRepository, ITemplateRepository templateRepository)
         {
-            _sender = mailSender;
+            _notificationRepository = notificationRepository;
             _templateRepository = templateRepository;
-            _userRepository = userRepository;
         }
 
-        public void NotifyReservationReady(int userId, int row, int seatNumber)
+        public void NotifyReservationReady(User user, Seanse seanse, Seat seat)
         {
-            string template = _templateRepository.GetHtmlTemplate();
-            template = string.Format(template, row, seatNumber);
-            User user = _userRepository.GetUser(userId);
-            _sender.Send(new MailSettings
+            string template = _templateRepository.GetReservationHtmlMessage(seanse, seat);
+            if (!string.IsNullOrEmpty(user.Email) && user.ContactByEmailAllowed)
             {
-                EmailTo = user.Email,
-                EmailFrom = "noReply@cinema.com",
-                Subject = "Result",
-                Content = template
-            });
+                _notificationRepository.QueueMail(new MailToSend
+                {
+                    EmailTo = user.Email,
+                    EmailFrom = "noReply@cinema.com",
+                    Subject = "Result",
+                    Content = template
+                });
+            }
         }
     }
 }

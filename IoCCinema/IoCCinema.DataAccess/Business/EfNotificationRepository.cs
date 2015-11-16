@@ -11,9 +11,14 @@ namespace IoCCinema.DataAccess.Business
             _context = context;
         }
 
-        public void Add(Notification notification)
+        public void QueueMail(MailToSend mailToSend)
         {
-            _context.Notifications.Add(notification);
+            _context.MailsToSend.Add(mailToSend);
+        }
+
+        public void QueueSms(SmsToSend smsToSend)
+        {
+            _context.SmsesToSend.Add(smsToSend);
         }
     }
 }

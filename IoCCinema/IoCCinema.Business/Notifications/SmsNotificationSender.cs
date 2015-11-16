@@ -2,27 +2,26 @@
 {
     public class SmsNotificationSender : INotificationSender
     {
-        private ISmsSender _sender;
-        private ITemplateRepository _templateRepository;
-        private IUserRepository _userRepository;
+        private readonly INotificationRepository _notificationRepository;
+        private readonly ITemplateRepository _templateRepository;
 
-        public SmsNotificationSender(ISmsSender smsSender, ITemplateRepository templateRepository, IUserRepository userRepository)
+        public SmsNotificationSender(INotificationRepository notificationRepository, ITemplateRepository templateRepository)
         {
-            _sender = smsSender;
+            _notificationRepository = notificationRepository;
             _templateRepository = templateRepository;
-            _userRepository = userRepository;
         }
 
-        public void NotifyReservationReady(int userId, int row, int seatNumber)
+        public void NotifyReservationReady(User user, Seanse seanse, Seat seat)
         {
-            string template = _templateRepository.GetPlainTextTemplate();
-            template = string.Format(template, row, seatNumber);
-            User user = _userRepository.GetUser(userId);
-            _sender.Send(new SmsSettings
+            string message = _templateRepository.GetReservationPlainTextMessage(seanse, seat);
+            if (!string.IsNullOrEmpty(user.MobilePhone) && user.ContactBySmslAllowed)
             {
-                Number = user.MobilePhone,
-                Message = template
-            });
+                _notificationRepository.QueueSms(new SmsToSend
+                {
+                    Number = user.MobilePhone,
+                    Message = message
+                });
+            }
         }
     }
 }

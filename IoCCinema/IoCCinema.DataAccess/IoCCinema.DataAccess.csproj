@@ -63,8 +63,6 @@
     <Compile Include="Business\EfUserRepository.cs" />
     <Compile Include="Presentation\EfMovieViewRepository.cs" />
     <Compile Include="DbSetup\MovieSeed.cs" />
-    <Compile Include="Sms\MyMobileSmsSender.cs" />
-    <Compile Include="Smtp\NetMailSender.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

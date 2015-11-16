@@ -2,6 +2,7 @@
 {
     public interface INotificationRepository
     {
-        void Add(Notification notification);
+        void QueueMail(MailToSend mailToSend);
+        void QueueSms(SmsToSend smsSettings);
     }
 }
