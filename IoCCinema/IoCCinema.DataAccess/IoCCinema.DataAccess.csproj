@@ -55,6 +55,8 @@
     <Compile Include="DbSetup\MovieTimeSeed.cs" />
     <Compile Include="DbSetup\RoomSeed.cs" />
     <Compile Include="DbSetup\UsersSeed.cs" />
+    <Compile Include="Notifications\GateSmsSender.cs" />
+    <Compile Include="Notifications\SmtpMailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Business\EFAuditRepository.cs" />
     <Compile Include="Business\EfNotificationRepository.cs" />
@@ -78,6 +80,7 @@
       <Name>IoCCinema.Presentation</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -50,8 +50,10 @@
     <Compile Include="DomainEvents\IDomainEventHandler.cs" />
     <Compile Include="DomainTime.cs" />
     <Compile Include="AuditLogging\AuditLog.cs" />
+    <Compile Include="Notifications\IMailSender.cs" />
     <Compile Include="Notifications\INotificationRepository.cs" />
     <Compile Include="IRoomRepository.cs" />
+    <Compile Include="Notifications\ISmsSender.cs" />
     <Compile Include="Notifications\ITemplateRepository.cs" />
     <Compile Include="IUserRepository.cs" />
     <Compile Include="Movie.cs" />

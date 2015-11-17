@@ -6,7 +6,7 @@ namespace IoCCinema.Background.Jobs
     {
         public static void SetupJobs(IScheduler scheduler)
         {
-            IJobDetail job1 = JobBuilder.Create<Job1>()
+            IJobDetail job1 = JobBuilder.Create<EmailSendingJob>()
                 .Build();
 
             ITrigger job1Trigger = TriggerBuilder.Create()
@@ -17,7 +17,7 @@ namespace IoCCinema.Background.Jobs
 
             scheduler.ScheduleJob(job1, job1Trigger);
 
-            IJobDetail job2 = JobBuilder.Create<Job2>()
+            IJobDetail job2 = JobBuilder.Create<SmsSendingJob>()
                 .Build();
 
             ITrigger job2Trigger = TriggerBuilder.Create()

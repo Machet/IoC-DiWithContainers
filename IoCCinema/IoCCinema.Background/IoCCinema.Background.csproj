@@ -41,11 +41,20 @@
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -61,15 +70,26 @@
   <ItemGroup>
     <Compile Include="BackgroundService.cs" />
     <Compile Include="Jobs\Configuration.cs" />
-    <Compile Include="Jobs\Job1.cs" />
-    <Compile Include="Jobs\Job2.cs" />
+    <Compile Include="Jobs\EmailSendingJob.cs" />
+    <Compile Include="Jobs\SmsSendingJob.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Jobs\PureJobFactory.cs" />
+    <Compile Include="Jobs\TransactionalJob.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IoCCinema.Business\IoCCinema.Business.csproj">
+      <Project>{0a08ca66-1253-4239-b6f5-9243027f5d7a}</Project>
+      <Name>IoCCinema.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IoCCinema.DataAccess\IoCCinema.DataAccess.csproj">
+      <Project>{f00ab9ca-1ac2-45e0-90f1-279b028986e6}</Project>
+      <Name>IoCCinema.DataAccess</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
