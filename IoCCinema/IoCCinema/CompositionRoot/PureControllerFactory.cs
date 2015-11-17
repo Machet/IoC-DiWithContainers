@@ -1,6 +1,6 @@
-﻿using IoCCinema.Business.AuditLogging;
-using IoCCinema.Business.Commands;
+﻿using IoCCinema.Business.Commands;
 using IoCCinema.Controllers;
+using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
 using IoCCinema.DataAccess.Presentation;
 using System;
@@ -17,12 +17,9 @@ namespace IoCCinema.CompositionRoot
             if (controllerType == typeof(HomeController))
             {
                 var perRequestStore = PerRequestStore.Current;
-
-                Func<int, AuditLogger> loggerFactory =
-                    (userId) => new AuditLogger(userId, new EFAuditRepository(perRequestStore.Context.Value));
-
-                var handler = new ReserveSeatCommandHandler(perRequestStore.RoomRepository.Value, loggerFactory);
-                var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(perRequestStore.Context.Value, handler);
+                var handler = new ReserveSeatCommandHandler(perRequestStore.RoomRepository.Value);
+                var auditingHandler = new AuditingCommandHandler<ReserveSeatCommand>(handler, perRequestStore.AuditLogger.Value);
+                var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(auditingHandler, perRequestStore.Context.Value);
                 var movieRepository = new EFHomeViewRepository(perRequestStore.Context.Value);
                 return new HomeController(movieRepository, transactionalHandler);
             }

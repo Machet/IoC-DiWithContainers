@@ -7,7 +7,7 @@ namespace IoCCinema.DataAccess.Business
         private ICommandHandler<T> _innerHandler;
         private CinemaContext _context;
 
-        public TransactionalCommandHandler(CinemaContext context, ICommandHandler<T> handler)
+        public TransactionalCommandHandler(ICommandHandler<T> handler, CinemaContext context)
         {
             _context = context;
             _innerHandler = handler;

@@ -40,8 +40,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuditLogging\AuditLogger.cs" />
-    <Compile Include="AuditLogging\IAuditRepository.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
     <Compile Include="Commands\ReserveSeatCommand.cs" />
@@ -49,7 +47,6 @@
     <Compile Include="DomainEvents\IDomainEvent.cs" />
     <Compile Include="DomainEvents\IDomainEventHandler.cs" />
     <Compile Include="DomainTime.cs" />
-    <Compile Include="AuditLogging\AuditLog.cs" />
     <Compile Include="Notifications\IMailSender.cs" />
     <Compile Include="Notifications\INotificationRepository.cs" />
     <Compile Include="IRoomRepository.cs" />

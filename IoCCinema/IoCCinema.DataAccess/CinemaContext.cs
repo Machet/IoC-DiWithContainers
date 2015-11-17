@@ -1,8 +1,8 @@
 ﻿using System.Data.Entity;
 
-using IoCCinema.Business.AuditLogging;
 using IoCCinema.Business;
 using IoCCinema.Business.Notifications;
+using IoCCinema.DataAccess.AuditLogging;
 
 namespace IoCCinema.DataAccess
 {

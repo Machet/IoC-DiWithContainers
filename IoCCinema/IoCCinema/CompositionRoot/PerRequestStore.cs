@@ -1,6 +1,7 @@
 ﻿using IoCCinema.Business;
 using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess;
+using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
 using System;
 using System.Web;
@@ -16,6 +17,7 @@ namespace IoCCinema.CompositionRoot
         public Lazy<IUserRepository> UserRepository { get; private set; }
         public Lazy<ITemplateRepository> TemplateRepository { get; private set; }
         public Lazy<INotificationRepository> NotificationRepository { get; private set; }
+        public Lazy<AuditLogger> AuditLogger { get; private set; }
 
         private PerRequestStore()
         {
@@ -24,6 +26,7 @@ namespace IoCCinema.CompositionRoot
             UserRepository = new Lazy<IUserRepository>(() => new EfUserRepository(Context.Value));
             TemplateRepository = new Lazy<ITemplateRepository>(() => new EfTemplateRepository());
             NotificationRepository = new Lazy<INotificationRepository>(() => new EfNotificationRepository(Context.Value));
+            AuditLogger = new Lazy<AuditLogger>(() => new AuditLogger(new ContextUserProvider(), Context.Value));
         }
 
         public static PerRequestStore Current

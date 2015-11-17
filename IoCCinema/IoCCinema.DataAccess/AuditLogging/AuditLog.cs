@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IoCCinema.Business.AuditLogging
+namespace IoCCinema.DataAccess.AuditLogging
 {
 	public class AuditLog
 	{

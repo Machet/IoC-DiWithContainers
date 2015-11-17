@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using IoCCinema.Business.DomainEvents;
 using IoCCinema.Business.Notifications;
+using IoCCinema.DataAccess.AuditLogging;
 
 namespace IoCCinema.CompositionRoot
 {
@@ -12,13 +13,15 @@ namespace IoCCinema.CompositionRoot
             if (typeof(T) == typeof(SeatAssignedToUser))
             {
                 var perRequestStore = PerRequestStore.Current;
-                yield return (IDomainEventHandler<T>)new SendNotificationWhenSeatTaken(
+                var handler = (IDomainEventHandler<T>)new SendNotificationWhenSeatTaken(
                     perRequestStore.UserRepository.Value,
                     perRequestStore.RoomRepository.Value, new List<INotificationSender>
                     {
                         new SmsNotificationSender(perRequestStore.NotificationRepository.Value, perRequestStore.TemplateRepository.Value),
                         new EmailNotificationSender(perRequestStore.NotificationRepository.Value, perRequestStore.TemplateRepository.Value)
                     });
+
+                yield return new AuditingEventHandler<T>(handler, perRequestStore.AuditLogger.Value);
             }
 
             yield break;

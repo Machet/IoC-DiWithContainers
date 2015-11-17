@@ -39,6 +39,10 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -49,6 +53,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditLogging\AuditingCommandHandler.cs" />
+    <Compile Include="AuditLogging\AuditingEventHandler.cs" />
+    <Compile Include="AuditLogging\AuditLog.cs" />
+    <Compile Include="AuditLogging\AuditLogger.cs" />
+    <Compile Include="AuditLogging\ICurrentUserProvider.cs" />
     <Compile Include="Business\TransactionalCommandHandler.cs" />
     <Compile Include="CinemaContext.cs" />
     <Compile Include="DbSetup\CinemaDbInitializer.cs" />
@@ -58,7 +67,6 @@
     <Compile Include="Notifications\GateSmsSender.cs" />
     <Compile Include="Notifications\SmtpMailSender.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Business\EFAuditRepository.cs" />
     <Compile Include="Business\EfNotificationRepository.cs" />
     <Compile Include="Business\EfRoomRepository.cs" />
     <Compile Include="Business\EfTemplateRepository.cs" />
