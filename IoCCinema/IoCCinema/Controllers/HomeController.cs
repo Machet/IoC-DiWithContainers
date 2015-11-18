@@ -22,12 +22,14 @@ namespace IoCCinema.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult ChooseSeat(int seanseId)
         {
             return View(_repository.GetRoomBySeanse(seanseId));
         }
 
         [HttpPost]
+        [Authorize]
         public ActionResult ChooseSeat(int seanseId, string seat)
         {
             var seatPosition = seat.Split('_');

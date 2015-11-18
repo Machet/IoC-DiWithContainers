@@ -3,11 +3,13 @@
 using IoCCinema.Business;
 using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess.AuditLogging;
+using IoCCinema.Business.Authentication;
 
 namespace IoCCinema.DataAccess
 {
     public class CinemaContext : DbContext
     {
+        public DbSet<LoginAttempt> LoginAttempts { get; set; }
         public DbSet<AuditLog> AuditLogs { get; set; }
         public DbSet<Movie> Movies { get; set; }
         public DbSet<Room> Rooms { get; set; }

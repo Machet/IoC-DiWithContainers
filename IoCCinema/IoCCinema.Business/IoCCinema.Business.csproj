@@ -40,8 +40,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Authentication\IAuthenticationRepository.cs" />
+    <Compile Include="Authentication\LoginAttempt.cs" />
+    <Compile Include="Authentication\StringHasher.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ICommandHandler.cs" />
+    <Compile Include="Commands\LoginCommand.cs" />
+    <Compile Include="Commands\LoginCommandHandler.cs" />
     <Compile Include="Commands\ReserveSeatCommand.cs" />
     <Compile Include="DomainEventBus.cs" />
     <Compile Include="DomainEvents\IDomainEvent.cs" />

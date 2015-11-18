@@ -123,6 +123,7 @@
     <Compile Include="CompositionRoot\PerRequestStore.cs" />
     <Compile Include="CompositionRoot\PureDomainEventBus.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -165,6 +166,7 @@
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\ChooseSeat.cshtml" />
     <Content Include="Views\Home\SeatTaken.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

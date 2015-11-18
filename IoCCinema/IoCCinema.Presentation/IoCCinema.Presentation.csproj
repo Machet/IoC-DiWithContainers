@@ -41,6 +41,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IHomeViewRepository.cs" />
+    <Compile Include="ILoginRepository.cs" />
+    <Compile Include="LoginAttemptDTO.cs" />
     <Compile Include="MovieDTO.cs" />
     <Compile Include="RoomDTO.cs" />
     <Compile Include="SeanseDTO.cs" />
