@@ -8,10 +8,10 @@ namespace IoCCinema.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly ILoginRepository _loginRepository;
+        private readonly ILoginViewRepository _loginRepository;
         private readonly ICommandHandler<LoginCommand> _loginHandler;
 
-        public LoginController(ILoginRepository loginRepository, ICommandHandler<LoginCommand> loginHandler)
+        public LoginController(ILoginViewRepository loginRepository, ICommandHandler<LoginCommand> loginHandler)
         {
             _loginHandler = loginHandler;
             _loginRepository = loginRepository;
@@ -45,7 +45,7 @@ namespace IoCCinema.Controllers
             LoginAttemptDTO result = _loginRepository.GetLoginAttemptById(attemptId);
             if (result.Succeeded)
             {
-                FormsAuthentication.SetAuthCookie(result.UserName, false);
+                FormsAuthentication.SetAuthCookie(result.UserId.ToString(), false);
                 return !string.IsNullOrEmpty(returnUrl)
                     ? (ActionResult)Redirect(returnUrl)
                     : RedirectToAction("Index", "Home");

@@ -40,10 +40,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AuditDTO.cs" />
+    <Compile Include="IAuditViewRepository.cs" />
     <Compile Include="IHomeViewRepository.cs" />
-    <Compile Include="ILoginRepository.cs" />
+    <Compile Include="ILoginViewRepository.cs" />
+    <Compile Include="INotificationViewRepository.cs" />
     <Compile Include="LoginAttemptDTO.cs" />
     <Compile Include="MovieDTO.cs" />
+    <Compile Include="NotificationsDTO.cs" />
     <Compile Include="RoomDTO.cs" />
     <Compile Include="SeanseDTO.cs" />
     <Compile Include="SeatDTO.cs" />

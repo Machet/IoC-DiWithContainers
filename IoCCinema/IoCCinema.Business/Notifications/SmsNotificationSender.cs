@@ -18,8 +18,10 @@
             {
                 _notificationRepository.QueueSms(new SmsToSend
                 {
-                    Number = user.MobilePhone,
-                    Message = message
+                    UserId = user.Id,
+                    PhoneNumber = user.MobilePhone,
+                    Message = message,
+                    CreationTime = DomainTime.Current.Now
                 });
             }
         }

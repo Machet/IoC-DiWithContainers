@@ -35,7 +35,7 @@ namespace IoCCinema.Controllers
             var seatPosition = seat.Split('_');
             _movieService.Handle(new ReserveSeatCommand
             {
-                UserId = 1,
+                UserId = int.Parse(User.Identity.Name),
                 SeanseId = seanseId,
                 SeatNumber = int.Parse(seatPosition[1]),
                 SeatRow = int.Parse(seatPosition[0])

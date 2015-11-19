@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace IoCCinema.DataAccess.Presentation
 {
-    public class EfLoginRepository : ILoginRepository
+    public class EfLoginRepository : ILoginViewRepository
     {
         private readonly CinemaContext _context;
 

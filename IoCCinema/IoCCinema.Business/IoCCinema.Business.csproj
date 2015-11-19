@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Authentication\IAuthenticationRepository.cs" />
+    <Compile Include="Authentication\ICurrentUserProvider.cs" />
     <Compile Include="Authentication\LoginAttempt.cs" />
     <Compile Include="Authentication\StringHasher.cs" />
     <Compile Include="Commands\ICommand.cs" />

@@ -2,7 +2,7 @@
 
 namespace IoCCinema.Presentation
 {
-    public interface ILoginRepository
+    public interface ILoginViewRepository
     {
         LoginAttemptDTO GetLoginAttemptById(Guid id);
     }

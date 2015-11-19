@@ -6,10 +6,15 @@ namespace IoCCinema.Business.Commands
     {
         private readonly StringHasher _hasher;
         private readonly IAuthenticationRepository _authRepository;
+        private readonly ICurrentUserProvider _userProvider;
 
-        public LoginCommandHandler(IAuthenticationRepository authRepository, StringHasher hasher)
+        public LoginCommandHandler(
+            IAuthenticationRepository authRepository,
+            ICurrentUserProvider userProvider,
+            StringHasher hasher)
         {
             _hasher = hasher;
+            _userProvider = userProvider;
             _authRepository = authRepository;
         }
 
@@ -34,6 +39,7 @@ namespace IoCCinema.Business.Commands
                 return;
             }
 
+            _userProvider.SetUserId(user.Id);
             _authRepository.Add(LoginAttempt.Successful(command.AttemptId, user));
         }
     }

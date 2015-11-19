@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoCCinema.Business.Authentication;
+using System;
 
 namespace IoCCinema.DataAccess.AuditLogging
 {
@@ -15,9 +16,14 @@ namespace IoCCinema.DataAccess.AuditLogging
 
         public void LogAction(string action)
         {
+            if (!_userProvider.GetUserId().HasValue)
+            {
+                return;
+            }
+
             _context.AuditLogs.Add(new AuditLog
             {
-                UserId = _userProvider.GetUserId(),
+                UserId = _userProvider.GetUserId().Value,
                 ChangeTime = DateTime.Now,
                 Changes = action
             });

@@ -1,0 +1,24 @@
+﻿@model List<IoCCinema.Presentation.AuditDTO>
+@{
+    ViewBag.Title = "Audit Entries";
+}
+
+<h2>Audit Entries</h2>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Text</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var entry in Model)
+        {
+            <tr>
+                <td>@entry.AuditTime</td>
+                <td>@entry.AuditText</td>
+            </tr>
+        }
+    </tbody>
+</table>

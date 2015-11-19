@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IoCCinema.Business;
+using System;
 
 namespace IoCCinema.Business.Notifications
 {
@@ -20,10 +21,12 @@ namespace IoCCinema.Business.Notifications
             {
                 _notificationRepository.QueueMail(new MailToSend
                 {
+                    UserId = user.Id,
                     EmailTo = user.Email,
                     EmailFrom = "noReply@cinema.com",
-                    Subject = "Result",
-                    Content = template
+                    Subject = "You have reserved seat",
+                    Content = template,
+                    CreationTime = DomainTime.Current.Now
                 });
             }
         }

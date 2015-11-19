@@ -1,0 +1,46 @@
+﻿@model IoCCinema.Presentation.NotificationsDTO
+@{
+    ViewBag.Title = "Notifications";
+}
+
+<h2>E-Mails</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>From</th>
+            <th>Subject</th>
+            <th>Content</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var email in Model.Emails)
+            {
+            <tr>
+                <td>@email.CreationTime</td>
+                <td>@email.From</td>
+                <td>@email.Subject</td>
+                <td>@Html.Raw(@email.Content)</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<h2>Smses</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Time</th>
+            <th>Message</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var email in Model.Smses)
+        {
+            <tr>
+                <td>@email.CreationTime</td>
+                <td>@email.Message</td>
+            </tr>
+        }
+    </tbody>
+</table>
