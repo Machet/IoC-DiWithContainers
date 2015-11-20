@@ -19,9 +19,16 @@ namespace IoCCinema.CompositionRoot
 
             if (controllerType == typeof(HomeController))
             {
-                var handler = new ReserveSeatCommandHandler(perRequestStore.RoomRepository.Value);
-                var auditingHandler = new AuditingCommandHandler<ReserveSeatCommand>(handler, perRequestStore.AuditLogger.Value);
-                var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(auditingHandler, perRequestStore.Context.Value);
+                var handler = new ReserveSeatCommandHandler(
+                    perRequestStore.UserRepository.Value,
+                    perRequestStore.RoomRepository.Value,
+                    new PureWinChanceCalculatorFactory(perRequestStore.UserRepository.Value));
+                var auditingHandler = new AuditingCommandHandler<ReserveSeatCommand>(
+                    handler,
+                    perRequestStore.AuditLogger.Value);
+                var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(
+                    auditingHandler,
+                    perRequestStore.Context.Value);
                 var movieRepository = new EFHomeViewRepository(perRequestStore.Context.Value);
                 return new HomeController(movieRepository, transactionalHandler);
             }
@@ -34,7 +41,7 @@ namespace IoCCinema.CompositionRoot
                 return new LoginController(new EfLoginRepository(perRequestStore.Context.Value), transactionalHandler);
             }
 
-            if(controllerType == typeof(AuditController))
+            if (controllerType == typeof(AuditController))
             {
                 return new AuditController(new EfAuditViewRepository(perRequestStore.Context.Value));
             }

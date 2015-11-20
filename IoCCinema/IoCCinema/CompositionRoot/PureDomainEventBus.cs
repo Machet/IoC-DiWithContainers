@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using IoCCinema.Business.DomainEvents;
 using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess.AuditLogging;
+using IoCCinema.Business.Lotery;
 
 namespace IoCCinema.CompositionRoot
 {
@@ -13,13 +14,15 @@ namespace IoCCinema.CompositionRoot
             if (typeof(T) == typeof(SeatAssignedToUser))
             {
                 var perRequestStore = PerRequestStore.Current;
-                var handler = (IDomainEventHandler<T>)new SendNotificationWhenSeatTaken(
-                    perRequestStore.UserRepository.Value,
-                    perRequestStore.RoomRepository.Value, new List<INotificationSender>
-                    {
-                        new SmsNotificationSender(perRequestStore.NotificationRepository.Value, perRequestStore.TemplateRepository.Value),
-                        new EmailNotificationSender(perRequestStore.NotificationRepository.Value, perRequestStore.TemplateRepository.Value)
-                    });
+                var handler = (IDomainEventHandler<T>)perRequestStore.SendNotificationHandler.Value;
+
+                yield return new AuditingEventHandler<T>(handler, perRequestStore.AuditLogger.Value);
+            }
+
+            if (typeof(T) == typeof(FreeTicketGranted))
+            {
+                var perRequestStore = PerRequestStore.Current;
+                var handler = (IDomainEventHandler<T>)perRequestStore.SendNotificationHandler.Value;
 
                 yield return new AuditingEventHandler<T>(handler, perRequestStore.AuditLogger.Value);
             }

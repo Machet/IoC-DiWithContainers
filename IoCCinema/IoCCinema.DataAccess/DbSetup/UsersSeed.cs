@@ -19,7 +19,8 @@ namespace IoCCinema.DataAccess.DbSetup
                     MobilePhone = "" + i + i + i + i + i,
                     ContactBySmslAllowed = true,
                     Password = hasher.GetHash("123", "user" + i),
-                    PasswordSalt = "user" + i
+                    PasswordSalt = "user" + i,
+                    UserType = (UserType)(i % 3)
                 });
             }
 

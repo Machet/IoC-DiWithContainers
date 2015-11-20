@@ -122,6 +122,7 @@
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
     <Compile Include="CompositionRoot\PerRequestStore.cs" />
     <Compile Include="CompositionRoot\PureDomainEventBus.cs" />
+    <Compile Include="CompositionRoot\PureWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

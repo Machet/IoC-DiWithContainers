@@ -10,5 +10,7 @@
         public bool ContactBySmslAllowed { get; set; }
         public string Password { get; set; }
         public string PasswordSalt { get; set; }
+        public UserType UserType { get; set; }
+        public int FreeTicketsCount { get; set; }
     }
 }

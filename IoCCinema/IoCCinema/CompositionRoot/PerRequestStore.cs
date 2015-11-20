@@ -5,6 +5,7 @@ using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
 using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace IoCCinema.CompositionRoot
@@ -20,6 +21,8 @@ namespace IoCCinema.CompositionRoot
         public Lazy<INotificationRepository> NotificationRepository { get; private set; }
         public Lazy<AuditLogger> AuditLogger { get; private set; }
         public Lazy<ICurrentUserProvider> CurrentUserProvider { get; private set; }
+        public Lazy<SendNotificationWhenSeatTaken> SendNotificationHandler { get; private set; }
+
         private PerRequestStore()
         {
             Context = new Lazy<CinemaContext>(() => new CinemaContext());
@@ -29,6 +32,7 @@ namespace IoCCinema.CompositionRoot
             TemplateRepository = new Lazy<ITemplateRepository>(() => new EfTemplateRepository());
             NotificationRepository = new Lazy<INotificationRepository>(() => new EfNotificationRepository(Context.Value));
             AuditLogger = new Lazy<AuditLogger>(() => new AuditLogger(CurrentUserProvider.Value, Context.Value));
+            SendNotificationHandler = new Lazy<SendNotificationWhenSeatTaken>(CreateSendNotificationHandler);
         }
 
         public static PerRequestStore Current
@@ -60,6 +64,17 @@ namespace IoCCinema.CompositionRoot
             {
                 Context.Value.Dispose();
             }
+        }
+
+        private SendNotificationWhenSeatTaken CreateSendNotificationHandler()
+        {
+            return new SendNotificationWhenSeatTaken(
+                UserRepository.Value,
+                RoomRepository.Value, new List<INotificationSender>
+                {
+                    new SmsNotificationSender(NotificationRepository.Value, TemplateRepository.Value),
+                    new EmailNotificationSender(NotificationRepository.Value, TemplateRepository.Value)
+                });
         }
     }
 }
