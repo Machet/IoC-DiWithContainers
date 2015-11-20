@@ -18,5 +18,10 @@ namespace IoCCinema.DataAccess
         public DbSet<SeatAssignment> SeatAssignments { get; set; }
         public DbSet<MailToSend> MailsToSend { get; set; }
         public DbSet<SmsToSend> SmsesToSend { get; set; }
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
     }
 }
