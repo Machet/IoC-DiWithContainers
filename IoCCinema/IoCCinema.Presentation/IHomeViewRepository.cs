@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace IoCCinema.Presentation
 {
-    public interface IHomeViewRepository
+    public interface IMovieViewRepository
     {
         List<MovieDTO> GetMovies(DateTime start);
         RoomDTO GetRoomBySeanse(int seanseId);

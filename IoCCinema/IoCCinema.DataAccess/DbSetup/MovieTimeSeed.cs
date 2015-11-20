@@ -11,6 +11,7 @@ namespace IoCCinema.DataAccess.DbSetup
             context.Seanses.Add(new Seanse { RoomId = 1, MovieId = 1, StartTime = new TimeSpan(12, 0, 0), EndTime = new TimeSpan(15, 30, 0) });
             context.Seanses.Add(new Seanse { RoomId = 1, MovieId = 1, StartTime = new TimeSpan(16, 0, 0), EndTime = new TimeSpan(17, 30, 0) });
             context.Seanses.Add(new Seanse { RoomId = 1, MovieId = 1, StartTime = new TimeSpan(21, 0, 0), EndTime = new TimeSpan(23, 30, 0) });
+            context.Seanses.Add(new Seanse { RoomId = 3, MovieId = 1, StartTime = new TimeSpan(23, 30, 0), EndTime = new TimeSpan(1, 30, 0) });
 
             context.Seanses.Add(new Seanse { RoomId = 2, MovieId = 2, StartTime = new TimeSpan(9, 0, 0), EndTime = new TimeSpan(12, 0, 0) });
             context.Seanses.Add(new Seanse { RoomId = 2, MovieId = 2, StartTime = new TimeSpan(12, 30, 0), EndTime = new TimeSpan(15, 30, 0) });

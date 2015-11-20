@@ -1,15 +1,15 @@
-﻿using System;
+﻿using IoCCinema.Presentation;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using IoCCinema.Presentation;
 
 namespace IoCCinema.DataAccess.Presentation
 {
-    public class EFHomeViewRepository : IHomeViewRepository
+    public class EfMovieViewRepository : IMovieViewRepository
     {
         private readonly CinemaContext _context;
 
-        public EFHomeViewRepository(CinemaContext context)
+        public EfMovieViewRepository(CinemaContext context)
         {
             _context = context;
         }

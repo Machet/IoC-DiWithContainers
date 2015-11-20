@@ -124,6 +124,7 @@
     <Compile Include="CompositionRoot\PureDomainEventBus.cs" />
     <Compile Include="CompositionRoot\PureWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
+    <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\NotificationController.cs" />
@@ -167,8 +168,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Home\ChooseSeat.cshtml" />
-    <Content Include="Views\Home\SeatTaken.cshtml" />
+    <Content Include="Views\Reservation\ChooseSeat.cshtml" />
+    <Content Include="Views\Reservation\SeatTaken.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Audit\Index.cshtml" />
     <Content Include="Views\Notification\Index.cshtml" />

@@ -21,6 +21,11 @@ textarea {
     margin: 0 5px;
 }
 
+a.disabled {
+    color: lightgray;
+    pointer-events: none;
+}
+
 .screen {
     width: 80%;
     background-color: green;

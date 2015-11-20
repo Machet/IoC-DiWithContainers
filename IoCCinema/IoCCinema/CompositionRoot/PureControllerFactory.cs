@@ -19,6 +19,12 @@ namespace IoCCinema.CompositionRoot
 
             if (controllerType == typeof(HomeController))
             {
+                var movieRepository = new EfMovieViewRepository(perRequestStore.Context.Value);
+                return new HomeController(movieRepository);
+            }
+
+            if (controllerType == typeof(ReservationController))
+            {
                 var handler = new ReserveSeatCommandHandler(
                     perRequestStore.UserRepository.Value,
                     perRequestStore.RoomRepository.Value,
@@ -29,8 +35,8 @@ namespace IoCCinema.CompositionRoot
                 var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(
                     auditingHandler,
                     perRequestStore.Context.Value);
-                var movieRepository = new EFHomeViewRepository(perRequestStore.Context.Value);
-                return new HomeController(movieRepository, transactionalHandler);
+                var movieRepository = new EfMovieViewRepository(perRequestStore.Context.Value);
+                return new ReservationController(movieRepository, transactionalHandler);
             }
 
             if (controllerType == typeof(LoginController))

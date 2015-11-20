@@ -22,7 +22,12 @@
                 <td>
                     @foreach (var showTime in movie.ShowTimes)
                     {
-                        @Html.ActionLink(showTime.StartTime.ToString("hh':'mm"), "ChooseSeat", new { seanseId = showTime.SeanseId })
+                        @Html.ActionLink(
+                            showTime.StartTime.ToString("hh':'mm"), 
+                            "ChooseSeat", 
+                            "Reservation", 
+                            new { seanseId = showTime.SeanseId }, 
+                            new { @class = DateTime.Now.TimeOfDay > showTime.StartTime ? "disabled" : "" })
                     }
                 </td>
             </tr>
