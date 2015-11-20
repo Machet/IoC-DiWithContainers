@@ -36,7 +36,7 @@ namespace IoCCinema.CompositionRoot
             if (controllerType == typeof(LoginController))
             {
                 var handler = new LoginCommandHandler(new EfAuthenticationRepository(perRequestStore.Context.Value), perRequestStore.CurrentUserProvider.Value, new StringHasher());
-                var auditingHandler = new AuditingCommandHandler<LoginCommand>(handler, perRequestStore.AuditLogger.Value);
+                var auditingHandler = new AuditingLoginCommandHandler(handler, perRequestStore.AuditLogger.Value);
                 var transactionalHandler = new TransactionalCommandHandler<LoginCommand>(auditingHandler, perRequestStore.Context.Value);
                 return new LoginController(new EfLoginRepository(perRequestStore.Context.Value), transactionalHandler);
             }

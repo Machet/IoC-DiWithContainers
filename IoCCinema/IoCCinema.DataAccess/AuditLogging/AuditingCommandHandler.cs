@@ -17,9 +17,9 @@ namespace IoCCinema.DataAccess.AuditLogging
 
         public void Handle(T command)
         {
-            _innerHandler.Handle(command);
-
             string serializedEvent = JsonConvert.SerializeObject(command);
+            _logger.LogAction("User performing " + typeof(T).Name + Environment.NewLine + serializedEvent);
+            _innerHandler.Handle(command);
             _logger.LogAction("User performed " + typeof(T).Name + Environment.NewLine + serializedEvent);
         }
     }
