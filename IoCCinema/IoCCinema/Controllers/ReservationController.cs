@@ -5,6 +5,7 @@ using IoCCinema.Business.Commands;
 
 namespace IoCCinema.Controllers
 {
+    [Authorize]
     public class ReservationController : Controller
     {
         private readonly IMovieViewRepository _repository;
@@ -17,14 +18,12 @@ namespace IoCCinema.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public ActionResult ChooseSeat(int seanseId)
         {
             return View(_repository.GetRoomBySeanse(seanseId));
         }
 
         [HttpPost]
-        [Authorize]
         public ActionResult ChooseSeat(int seanseId, string seat)
         {
             var seatPosition = seat.Split('_');

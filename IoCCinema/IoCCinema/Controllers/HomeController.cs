@@ -13,9 +13,18 @@ namespace IoCCinema.Controllers
             _repository = repository;
         }
 
+        [HttpGet]
         public ActionResult Index()
         {
             return View(_repository.GetMovies(DateTime.Now));
+        }
+
+        [HttpGet]
+        [Authorize]
+        public ActionResult ChooseSeat(int seanseId)
+        {
+            // just to trigger authentication before reservationController constructor - for better example flow
+            return RedirectToAction("ChooseSeat", "Reservation", new { seanseId });
         }
     }
 }
