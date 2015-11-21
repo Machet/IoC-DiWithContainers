@@ -24,8 +24,7 @@
                     {
                         @Html.ActionLink(
                             showTime.StartTime.ToString("hh':'mm"), 
-                            "ChooseSeat", 
-                            "Reservation", 
+                            "ChooseSeat",
                             new { seanseId = showTime.SeanseId }, 
                             new { @class = DateTime.Now.TimeOfDay > showTime.StartTime ? "disabled" : "" })
                     }
