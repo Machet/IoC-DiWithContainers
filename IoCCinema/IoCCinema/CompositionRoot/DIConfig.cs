@@ -1,5 +1,6 @@
 ﻿using IoCCinema.Business.Authentication;
 using IoCCinema.Business.Commands;
+using IoCCinema.Business.Lotery;
 using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.Business;
 using SimpleInjector;
@@ -20,6 +21,7 @@ namespace IoCCinema.CompositionRoot
 
             container.Register<CinemaContext>(perRequest);
             container.Register<ICurrentUserProvider, ContextUserProvider>(Lifestyle.Singleton);
+            container.Register<IWinChanceCalculatorFactory, SimpleInjectorWinChanceCalculatorFactory>(Lifestyle.Singleton);
 
             foreach (var repositorType in dataAccessAssembly.GetExportedTypes()
                 .Where(t => t.Name.Contains("Repository")))
@@ -27,8 +29,8 @@ namespace IoCCinema.CompositionRoot
                 container.Register(repositorType.GetInterfaces().Single(), repositorType, perRequest);
             }
 
-            container.RegisterDecorator<ICommandHandler<LoginCommand>, TransactionalCommandHandler<LoginCommand>>();
-            container.Register<ICommandHandler<LoginCommand>, LoginCommandHandler>();
+            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(TransactionalCommandHandler<>));
+            container.Register(typeof(ICommandHandler<>), new[] { typeof(ICommandHandler<>).Assembly });
 
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
