@@ -43,13 +43,14 @@ namespace IoCCinema.CompositionRoot
             container.Register(typeof(ICommandHandler<>), new[] { businessAssembly });
 
             container.RegisterCollection(typeof(INotificationSender), new[] { businessAssembly });
+            var registration = perRequest.CreateRegistration<SendNotificationWhenSeatTaken>(container);
             container.AppendToCollection(typeof(IDomainEventHandler<>), typeof(AuditOccurrenceEventHandler<>));
-            container.RegisterCollection(typeof(IDomainEventHandler<>), new[] { businessAssembly, dataAccessAssembly });
+            container.RegisterCollection(typeof(IDomainEventHandler<>), new[] { registration });
             container.RegisterDecorator(typeof(IDomainEventHandler<>), typeof(AuditingEventHandler<>),
                 p => !p.ImplementationType.Name.Contains("Audit"));
 
 
-            container.Register<List<INotificationSender>>(() => container.GetAllInstances<INotificationSender>().ToList());
+            container.Register<List<INotificationSender>>(() => container.GetAllInstances<INotificationSender>().ToList(), perRequest);
             DomainEventBus.Current = new SimpleInjectorEventBus(container);
             DependencyResolver.SetResolver(new SimpleInjectorDependencyResolver(container));
         }
