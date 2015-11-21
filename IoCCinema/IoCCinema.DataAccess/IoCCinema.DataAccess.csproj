@@ -56,6 +56,7 @@
     <Compile Include="AuditLogging\AuditingCommandHandler.cs" />
     <Compile Include="AuditLogging\AuditingEventHandler.cs" />
     <Compile Include="AuditLogging\AuditingLoginCommandHandler.cs" />
+    <Compile Include="AuditLogging\AuditOccurrenceEventHandler.cs" />
     <Compile Include="AuditLogging\AuditLog.cs" />
     <Compile Include="AuditLogging\AuditLogger.cs" />
     <Compile Include="Business\EfAuthenticationRepository.cs" />

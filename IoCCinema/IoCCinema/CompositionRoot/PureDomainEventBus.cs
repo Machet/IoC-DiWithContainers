@@ -1,9 +1,8 @@
 ﻿using IoCCinema.Business;
-using System.Collections.Generic;
 using IoCCinema.Business.DomainEvents;
-using IoCCinema.Business.Notifications;
-using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.Business.Lotery;
+using IoCCinema.DataAccess.AuditLogging;
+using System.Collections.Generic;
 
 namespace IoCCinema.CompositionRoot
 {
@@ -11,19 +10,18 @@ namespace IoCCinema.CompositionRoot
     {
         protected override IEnumerable<IDomainEventHandler<T>> GetEventHandlers<T>()
         {
+            var perRequestStore = PerRequestStore.Current;
+            yield return new AuditOccurrenceEventHandler<T>(perRequestStore.AuditLogger.Value);
+
             if (typeof(T) == typeof(SeatAssignedToUser))
             {
-                var perRequestStore = PerRequestStore.Current;
                 var handler = (IDomainEventHandler<T>)perRequestStore.SendNotificationHandler.Value;
-
                 yield return new AuditingEventHandler<T>(handler, perRequestStore.AuditLogger.Value);
             }
 
             if (typeof(T) == typeof(FreeTicketGranted))
             {
-                var perRequestStore = PerRequestStore.Current;
                 var handler = (IDomainEventHandler<T>)perRequestStore.SendNotificationHandler.Value;
-
                 yield return new AuditingEventHandler<T>(handler, perRequestStore.AuditLogger.Value);
             }
 

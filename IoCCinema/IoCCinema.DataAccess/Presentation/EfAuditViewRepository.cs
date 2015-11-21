@@ -18,11 +18,12 @@ namespace IoCCinema.DataAccess.Presentation
             return _context.AuditLogs
                 .Where(a => a.UserId == userId)
                 .OrderByDescending(a => a.ChangeTime)
+                .ThenByDescending(a => a.Id)
                 .Select(a => new AuditDTO
                 {
                     AuditTime = a.ChangeTime,
                     AuditText = a.Changes
-                }).ToList();
+                }).Take(30).ToList();
         }
     }
 }
