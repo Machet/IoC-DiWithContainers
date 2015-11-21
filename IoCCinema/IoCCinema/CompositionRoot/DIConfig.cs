@@ -2,6 +2,7 @@
 using IoCCinema.Business.Commands;
 using IoCCinema.Business.Lotery;
 using IoCCinema.DataAccess;
+using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
@@ -29,6 +30,9 @@ namespace IoCCinema.CompositionRoot
                 container.Register(repositorType.GetInterfaces().Single(), repositorType, perRequest);
             }
 
+            container.RegisterDecorator(typeof(ICommandHandler<LoginCommand>), typeof(AuditingLoginCommandHandler));
+            container.RegisterDecorator(typeof(ICommandHandler<>), typeof(AuditingCommandHandler<>), 
+                p => !p.AppliedDecorators.Any(t => t.Name.Contains("Auditing")));
             container.RegisterDecorator(typeof(ICommandHandler<>), typeof(TransactionalCommandHandler<>));
             container.Register(typeof(ICommandHandler<>), new[] { typeof(ICommandHandler<>).Assembly });
 
