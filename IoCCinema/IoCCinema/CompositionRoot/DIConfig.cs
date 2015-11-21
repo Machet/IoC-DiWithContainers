@@ -2,11 +2,10 @@
 using IoCCinema.Business.Commands;
 using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.Business;
-using IoCCinema.DataAccess.Presentation;
-using IoCCinema.Presentation;
 using SimpleInjector;
 using SimpleInjector.Integration.Web;
 using SimpleInjector.Integration.Web.Mvc;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace IoCCinema.CompositionRoot
@@ -17,13 +16,16 @@ namespace IoCCinema.CompositionRoot
         {
             var container = new Container();
             var perRequest = new WebRequestLifestyle();
+            var dataAccessAssembly = typeof(CinemaContext).Assembly;
 
             container.Register<CinemaContext>(perRequest);
             container.Register<ICurrentUserProvider, ContextUserProvider>(Lifestyle.Singleton);
 
-            container.Register<IMovieViewRepository, EfMovieViewRepository>(perRequest);
-            container.Register<ILoginViewRepository, EfLoginRepository>(perRequest);
-            container.Register<IAuthenticationRepository, EfAuthenticationRepository>(perRequest);
+            foreach (var repositorType in dataAccessAssembly.GetExportedTypes()
+                .Where(t => t.Name.Contains("Repository")))
+            {
+                container.Register(repositorType.GetInterfaces().Single(), repositorType, perRequest);
+            }
 
             container.RegisterDecorator<ICommandHandler<LoginCommand>, TransactionalCommandHandler<LoginCommand>>();
             container.Register<ICommandHandler<LoginCommand>, LoginCommandHandler>();
