@@ -1,6 +1,4 @@
 ﻿using IoCCinema.Business.DomainEvents;
-using Newtonsoft.Json;
-using System;
 
 namespace IoCCinema.DataAccess.AuditLogging
 {
@@ -17,9 +15,8 @@ namespace IoCCinema.DataAccess.AuditLogging
 
         public void Handle(T @event)
         {
-            string serializedEvent = JsonConvert.SerializeObject(@event);
-            _logger.LogAction("Event raised " + typeof(T).Name + Environment.NewLine + serializedEvent);
             _innerHandler.Handle(@event);
+            _logger.LogAction("Event " + @event.GetType().Name + " handled by " + _innerHandler.GetType().Name);
         }
     }
 }
