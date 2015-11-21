@@ -168,7 +168,7 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
-    <Content Include="Views\Reservation\ChooseSeat.cshtml" />
+    <Content Include="Views\Home\ChooseSeat.cshtml" />
     <Content Include="Views\Reservation\SeatTaken.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Audit\Index.cshtml" />

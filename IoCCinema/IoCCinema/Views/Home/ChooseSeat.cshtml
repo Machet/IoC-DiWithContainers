@@ -5,7 +5,7 @@
 
 <h2>Choose Seat</h2>
 <div class="screen">Screen</div>
-@using (@Html.BeginForm())
+@using (@Html.BeginForm("ChooseSeat", "Reservation", new { seanseId = Request.Params["seanseId"] } ))
 {
     foreach (var row in Enumerable.Range(1, Model.RowsOfSeats))
     {

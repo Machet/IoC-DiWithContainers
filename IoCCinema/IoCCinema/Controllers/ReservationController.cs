@@ -1,26 +1,16 @@
-﻿using System;
+﻿using IoCCinema.Business.Commands;
 using System.Web.Mvc;
-using IoCCinema.Presentation;
-using IoCCinema.Business.Commands;
 
 namespace IoCCinema.Controllers
 {
     [Authorize]
     public class ReservationController : Controller
     {
-        private readonly IMovieViewRepository _repository;
         private readonly ICommandHandler<ReserveSeatCommand> _movieService;
 
-        public ReservationController(IMovieViewRepository repository, ICommandHandler<ReserveSeatCommand> service)
+        public ReservationController(ICommandHandler<ReserveSeatCommand> service)
         {
-            _repository = repository;
             _movieService = service;
-        }
-
-        [HttpGet]
-        public ActionResult ChooseSeat(int seanseId)
-        {
-            return View(_repository.GetRoomBySeanse(seanseId));
         }
 
         [HttpPost]
@@ -35,7 +25,7 @@ namespace IoCCinema.Controllers
                 SeatRow = int.Parse(seatPosition[0])
             });
 
-            return RedirectToAction("ChooseSeat", new { seanseId });
+            return RedirectToAction("SeatTaken");
         }
 
         [HttpGet]

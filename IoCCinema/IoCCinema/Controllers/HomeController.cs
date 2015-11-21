@@ -23,8 +23,7 @@ namespace IoCCinema.Controllers
         [Authorize]
         public ActionResult ChooseSeat(int seanseId)
         {
-            // just to trigger authentication before reservationController constructor - for better example flow
-            return RedirectToAction("ChooseSeat", "Reservation", new { seanseId });
+            return View(_repository.GetRoomBySeanse(seanseId));
         }
     }
 }

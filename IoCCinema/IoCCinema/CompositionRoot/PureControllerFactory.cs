@@ -35,8 +35,7 @@ namespace IoCCinema.CompositionRoot
                 var transactionalHandler = new TransactionalCommandHandler<ReserveSeatCommand>(
                     auditingHandler,
                     perRequestStore.Context.Value);
-                var movieRepository = new EfMovieViewRepository(perRequestStore.Context.Value);
-                return new ReservationController(movieRepository, transactionalHandler);
+                return new ReservationController(transactionalHandler);
             }
 
             if (controllerType == typeof(LoginController))
