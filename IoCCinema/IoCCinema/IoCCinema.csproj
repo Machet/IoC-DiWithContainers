@@ -130,6 +130,7 @@
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
     <Compile Include="CompositionRoot\DIConfig.cs" />
     <Compile Include="CompositionRoot\WindsorControllerFactory.cs" />
+    <Compile Include="CompositionRoot\WindsorDomainBus.cs" />
     <Compile Include="CompositionRoot\WindsorWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />

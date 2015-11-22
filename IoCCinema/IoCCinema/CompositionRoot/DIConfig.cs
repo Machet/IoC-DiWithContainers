@@ -1,16 +1,18 @@
 ﻿using Castle.MicroKernel.Registration;
+using Castle.MicroKernel.Resolvers.SpecializedResolvers;
 using Castle.Windsor;
+using IoCCinema.Business;
 using IoCCinema.Business.Authentication;
 using IoCCinema.Business.Commands;
+using IoCCinema.Business.DomainEvents;
 using IoCCinema.Business.Lotery;
-using IoCCinema.Controllers;
+using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess;
-using IoCCinema.DataAccess.Business;
-using IoCCinema.DataAccess.Presentation;
-using IoCCinema.Presentation;
-using System.Web.Mvc;
-using System.Linq;
 using IoCCinema.DataAccess.AuditLogging;
+using IoCCinema.DataAccess.Business;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
 
 namespace IoCCinema.CompositionRoot
 {
@@ -21,6 +23,7 @@ namespace IoCCinema.CompositionRoot
             var container = new WindsorContainer();
             var businessAssembly = typeof(ICommandHandler<>).Assembly;
             var dataAccessAssembly = typeof(CinemaContext).Assembly;
+            container.Kernel.Resolver.AddSubResolver(new ListResolver(container.Kernel));
 
             container.Register(Component.For<StringHasher>().LifeStyle.Singleton);
             container.Register(Component.For<ICurrentUserProvider>().ImplementedBy<ContextUserProvider>().LifeStyle.Singleton);
@@ -76,7 +79,27 @@ namespace IoCCinema.CompositionRoot
                 .WithService.FirstInterface()
                 .Configure(c => c.LifestyleTransient()));
 
+            // EVENTS
+            container.Register(Component.For<List<INotificationSender>>()
+                .UsingFactoryMethod(kernel => kernel.ResolveAll<INotificationSender>().ToList())
+                .LifeStyle.PerWebRequest);
+
+            container.Register(Classes.FromAssembly(businessAssembly)
+                .BasedOn(typeof(IDomainEventHandler<>))
+                .WithService.AllInterfaces()
+                .Configure(c => c.LifestylePerWebRequest()));
+
+            container.Register(Component.For(typeof(IDomainEventHandler<>))
+                .ImplementedBy(typeof(AuditOccurrenceEventHandler<>)));
+
+            container.Register(Classes.FromAssembly(businessAssembly)
+                .BasedOn<INotificationSender>()
+                .WithService.FirstInterface()
+                .Configure(c => c.LifestylePerWebRequest()));
+
+
             ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container));
+            DomainEventBus.Current = new WindsorDomainBus(container);
         }
     }
 }
