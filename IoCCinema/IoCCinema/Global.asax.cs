@@ -1,11 +1,10 @@
-﻿using System.Data.Entity;
+﻿using IoCCinema.CompositionRoot;
+using IoCCinema.DataAccess.DbSetup;
+using System;
+using System.Data.Entity;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using IoCCinema.DataAccess.DbSetup;
-using IoCCinema.CompositionRoot;
-using IoCCinema.Business;
-using System;
 
 namespace IoCCinema
 {
@@ -18,13 +17,11 @@ namespace IoCCinema
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new CinemaDbInitializer());
-            ControllerBuilder.Current.SetControllerFactory(new PureControllerFactory());
-            DomainEventBus.Current = new PureDomainEventBus();
+            DIConfig.Setup();
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            PerRequestStore.DisposeCurrent();
         }
     }
 }
