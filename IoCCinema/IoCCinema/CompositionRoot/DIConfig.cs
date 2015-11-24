@@ -1,18 +1,18 @@
-﻿using IoCCinema.Controllers;
+﻿using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.Presentation;
 using IoCCinema.Presentation;
 using Microsoft.Practices.Unity;
-using System.Web.Mvc;
 
 namespace IoCCinema.CompositionRoot
 {
     public class DIConfig
     {
-        public static void Setup()
+        public static UnityContainer Setup()
         {
             var container = new UnityContainer();
-            container.RegisterType<IMovieViewRepository, EfMovieViewRepository>();
-            ControllerBuilder.Current.SetControllerFactory(new UnityControllerFactory(container));
+            container.RegisterType<CinemaContext>(new PerRequestLifetimeManager());
+            container.RegisterType<IMovieViewRepository, EfMovieViewRepository>(new PerRequestLifetimeManager());
+            return container;
         }
     }
 }

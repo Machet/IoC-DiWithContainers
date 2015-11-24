@@ -17,7 +17,6 @@ namespace IoCCinema
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new CinemaDbInitializer());
-            DIConfig.Setup();
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
