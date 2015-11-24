@@ -2,9 +2,8 @@
 using IoCCinema.Business.Commands;
 using IoCCinema.Business.Lotery;
 using IoCCinema.DataAccess;
+using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
-using IoCCinema.DataAccess.Presentation;
-using IoCCinema.Presentation;
 using Microsoft.Practices.Unity;
 using System;
 using System.Linq;
@@ -42,10 +41,25 @@ namespace IoCCinema.CompositionRoot
                 (Type t) => "default",
                 WithLifetime.Transient);
 
-            container.RegisterType(typeof(ICommandHandler<>), typeof(TransactionalCommandHandler<>),
+            container.RegisterType(typeof(ICommandHandler<>), typeof(AuditingCommandHandler<>), "audit",
                 new InjectionConstructor(
                     new ResolvedParameter(typeof(ICommandHandler<>), "default"),
-                    new ResolvedParameter<CinemaContext>()));
+                    new ResolvedParameter<AuditLogger>()));
+
+            container.RegisterTypes(
+                AllClasses.FromAssemblies(dataAccessAssembly)
+                    .Where(t => t.Name.StartsWith("Auditing") && t.Name.Contains("CommandHandler") && t.Name != "AuditingCommandHandler"),
+                WithMappings.FromAllInterfaces,
+                (Type t) => "audit",
+                WithLifetime.Transient,
+                (Type t) => new[] { new InjectionConstructor(
+                    new ResolvedParameter(typeof(ICommandHandler<>).MakeGenericType(t.GetInterfaces().First().GetGenericArguments()), "default"),
+                    new ResolvedParameter<AuditLogger>()) });
+
+            container.RegisterType(typeof(ICommandHandler<>), typeof(TransactionalCommandHandler<>),
+                new InjectionConstructor(
+                new ResolvedParameter(typeof(ICommandHandler<>), "audit"),
+                new ResolvedParameter<CinemaContext>()));
 
             return container;
         }
