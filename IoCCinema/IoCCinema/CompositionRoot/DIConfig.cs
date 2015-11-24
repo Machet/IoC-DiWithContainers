@@ -5,6 +5,8 @@ using IoCCinema.DataAccess.Business;
 using IoCCinema.DataAccess.Presentation;
 using IoCCinema.Presentation;
 using Microsoft.Practices.Unity;
+using System;
+using System.Linq;
 
 namespace IoCCinema.CompositionRoot
 {
@@ -13,11 +15,17 @@ namespace IoCCinema.CompositionRoot
         public static UnityContainer Setup()
         {
             var container = new UnityContainer();
+            var businessAssembly = typeof(ICommand).Assembly;
+            var dataAccessAssembly = typeof(CinemaContext).Assembly;
+
             container.RegisterType<ICurrentUserProvider, ContextUserProvider>(new ContainerControlledLifetimeManager());
             container.RegisterType<CinemaContext>(new PerRequestLifetimeManager());
-            container.RegisterType<IMovieViewRepository, EfMovieViewRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<ILoginViewRepository, EfLoginRepository>(new PerRequestLifetimeManager());
-            container.RegisterType<IAuthenticationRepository, EfAuthenticationRepository>(new PerRequestLifetimeManager());
+
+            container.RegisterTypes(
+                AllClasses.FromAssemblies(dataAccessAssembly).Where(t => t.Name.Contains("Repository")),
+                WithMappings.FromAllInterfaces,
+                WithName.Default,
+                WithLifetime.Custom<PerRequestLifetimeManager>);
 
             container.RegisterType<ICommandHandler<LoginCommand>, LoginCommandHandler>("default");
             container.RegisterType<ICommandHandler<LoginCommand>, TransactionalCommandHandler<LoginCommand>>(
