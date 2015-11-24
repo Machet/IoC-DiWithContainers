@@ -151,6 +151,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
     <Compile Include="CompositionRoot\DIConfig.cs" />
+    <Compile Include="CompositionRoot\UnityWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
