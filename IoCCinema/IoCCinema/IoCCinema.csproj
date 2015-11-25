@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
     <Compile Include="CompositionRoot\DIConfig.cs" />
+    <Compile Include="CompositionRoot\AutofacWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
