@@ -15,15 +15,18 @@ namespace IoCCinema.CompositionRoot
         public static void Setup()
         {
             var builder = new ContainerBuilder();
+            var dataAccessAssembly = typeof(CinemaContext).Assembly;
+            var businessAssembly = typeof(ICommand).Assembly;
+
             builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
             builder.RegisterType<CinemaContext>().InstancePerRequest();
             builder.RegisterType<StringHasher>().SingleInstance();
             builder.RegisterType<ContextUserProvider>().As<ICurrentUserProvider>().SingleInstance();
 
-            builder.RegisterType<EfMovieViewRepository>().As<IMovieViewRepository>().InstancePerRequest();
-            builder.RegisterType<EfLoginRepository>().As<ILoginViewRepository>().InstancePerRequest();
-            builder.RegisterType<EfAuthenticationRepository>().As<IAuthenticationRepository>().InstancePerRequest();
+            builder.RegisterAssemblyTypes(dataAccessAssembly)
+                .Where(t => t.Name.EndsWith("Repository"))
+                .AsImplementedInterfaces();
 
             builder.RegisterType<LoginCommandHandler>().Named<ICommandHandler<LoginCommand>>("default");
             builder.RegisterDecorator<ICommandHandler<LoginCommand>>(
