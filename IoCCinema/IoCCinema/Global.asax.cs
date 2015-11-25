@@ -18,13 +18,12 @@ namespace IoCCinema
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             Database.SetInitializer(new CinemaDbInitializer());
-            ControllerBuilder.Current.SetControllerFactory(new PureControllerFactory());
-            DomainEventBus.Current = new PureDomainEventBus();
+
+            DIConfig.Setup();
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
         {
-            PerRequestStore.DisposeCurrent();
         }
     }
 }
