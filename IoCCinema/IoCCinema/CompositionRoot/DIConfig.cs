@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using Autofac.Integration.Mvc;
 using IoCCinema.Controllers;
 using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.Presentation;
@@ -16,13 +17,13 @@ namespace IoCCinema.CompositionRoot
         public static void Setup()
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<CinemaContext>();
+            builder.RegisterControllers(typeof(MvcApplication).Assembly);
 
-            builder.RegisterType<HomeController>();
-            builder.RegisterType<EfMovieViewRepository>().As<IMovieViewRepository>();
+            builder.RegisterType<CinemaContext>().InstancePerRequest();
+            builder.RegisterType<EfMovieViewRepository>().As<IMovieViewRepository>().InstancePerRequest();
 
             IContainer container = builder.Build();
-            ControllerBuilder.Current.SetControllerFactory(new AutofacControllerFactory(container));
+            DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
         }
     }
 }
