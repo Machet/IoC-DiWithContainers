@@ -5,6 +5,7 @@ using IoCCinema.Business.Authentication;
 using IoCCinema.Business.Commands;
 using IoCCinema.Business.Lotery;
 using IoCCinema.DataAccess;
+using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
 using System.Linq;
 using System.Web.Mvc;
@@ -23,6 +24,7 @@ namespace IoCCinema.CompositionRoot
 
             builder.RegisterType<CinemaContext>().InstancePerRequest();
             builder.RegisterType<StringHasher>().SingleInstance();
+            builder.RegisterType<AuditLogger>().InstancePerRequest();
             builder.RegisterType<ContextUserProvider>().As<ICurrentUserProvider>().SingleInstance();
             builder.RegisterType<AutofacWinChanceCalculatorFactory>()
                 .As<IWinChanceCalculatorFactory>().InstancePerRequest();
@@ -44,9 +46,18 @@ namespace IoCCinema.CompositionRoot
                     .Select(i => new KeyedService("default", i)));
 
             builder.RegisterGenericDecorator(
+                typeof(AuditingCommandHandler<>),
+                typeof(ICommandHandler<>),
+                fromKey: "default", toKey: "auditing");
+
+            builder.RegisterGenericDecorator(
                 typeof(TransactionalCommandHandler<>),
                 typeof(ICommandHandler<>),
-                fromKey: "default");
+                fromKey: "auditing");
+
+            builder.RegisterDecorator<ICommandHandler<LoginCommand>>(
+                (c, inner) => new AuditingLoginCommandHandler(inner, c.Resolve<AuditLogger>()),
+                fromKey: "default", toKey: "auditing");
 
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
