@@ -1,12 +1,16 @@
 ﻿using Autofac;
 using Autofac.Core;
 using Autofac.Integration.Mvc;
+using IoCCinema.Business;
 using IoCCinema.Business.Authentication;
 using IoCCinema.Business.Commands;
+using IoCCinema.Business.DomainEvents;
 using IoCCinema.Business.Lotery;
+using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -59,8 +63,29 @@ namespace IoCCinema.CompositionRoot
                 (c, inner) => new AuditingLoginCommandHandler(inner, c.Resolve<AuditLogger>()),
                 fromKey: "default", toKey: "auditing");
 
+            builder.RegisterAssemblyTypes(businessAssembly)
+                .AssignableTo<INotificationSender>()
+                .AsImplementedInterfaces();
+            builder.Register(c => c.Resolve<IEnumerable<INotificationSender>>().ToList())
+                .As<List<INotificationSender>>();
+
+            builder.RegisterGeneric(typeof(AuditOccurrenceEventHandler<>)).AsImplementedInterfaces();
+
+            builder.RegisterAssemblyTypes(businessAssembly)
+                .Where(t => t.IsClosedTypeOf(typeof(IDomainEventHandler<>)))
+                .As(t => t.GetInterfaces()
+                    .Select(i => new KeyedService("defaultEvent", i)))
+                .PreserveExistingDefaults()
+                .InstancePerRequest();
+
+            builder.RegisterGenericDecorator(
+                typeof(AuditingEventHandler<>),
+                typeof(IDomainEventHandler<>),
+                fromKey: "defaultEvent");
+
             IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));
+            DomainEventBus.Current = new AutofacDomainEventBus();
         }
     }
 }

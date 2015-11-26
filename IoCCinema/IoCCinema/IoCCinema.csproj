@@ -127,6 +127,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="CompositionRoot\AutofacDomainEventBus.cs" />
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
     <Compile Include="CompositionRoot\DIConfig.cs" />
     <Compile Include="CompositionRoot\AutofacWinChanceCalculatorFactory.cs" />
