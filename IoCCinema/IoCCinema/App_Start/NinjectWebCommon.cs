@@ -12,6 +12,7 @@ namespace IoCCinema.App_Start
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Web.Common;
+    using Ninject.Extensions.Conventions;
     using Presentation;
     using System;
     using System.Web;
@@ -55,9 +56,10 @@ namespace IoCCinema.App_Start
             kernel.Bind<CinemaContext>().ToSelf().InRequestScope();
             kernel.Bind<ICurrentUserProvider>().To<ContextUserProvider>().InSingletonScope();
 
-            kernel.Bind<IMovieViewRepository>().To<EfMovieViewRepository>().InRequestScope();
-            kernel.Bind<ILoginViewRepository>().To<EfLoginRepository>().InRequestScope();
-            kernel.Bind<IAuthenticationRepository>().To<EfAuthenticationRepository>().InRequestScope();
+            kernel.Bind(x => x.FromAssemblyContaining<CinemaContext>()
+                .SelectAllClasses()
+                .EndingWith("Repository")
+                .BindSingleInterface());
 
             kernel.Bind<ICommandHandler<LoginCommand>>().To<LoginCommandHandler>()
                 .WhenInjectedInto<TransactionalCommandHandler<LoginCommand>>();
