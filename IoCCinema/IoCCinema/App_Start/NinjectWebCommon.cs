@@ -3,7 +3,11 @@
 
 namespace IoCCinema.App_Start
 {
+    using Business.Authentication;
+    using Business.Commands;
+    using CompositionRoot;
     using DataAccess;
+    using DataAccess.Business;
     using DataAccess.Presentation;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
@@ -49,7 +53,16 @@ namespace IoCCinema.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             kernel.Bind<CinemaContext>().ToSelf().InRequestScope();
-            kernel.Bind<IMovieViewRepository>().To<EfMovieViewRepository>();
+            kernel.Bind<ICurrentUserProvider>().To<ContextUserProvider>().InSingletonScope();
+
+            kernel.Bind<IMovieViewRepository>().To<EfMovieViewRepository>().InRequestScope();
+            kernel.Bind<ILoginViewRepository>().To<EfLoginRepository>().InRequestScope();
+            kernel.Bind<IAuthenticationRepository>().To<EfAuthenticationRepository>().InRequestScope();
+
+            kernel.Bind<ICommandHandler<LoginCommand>>().To<LoginCommandHandler>()
+                .WhenInjectedInto<TransactionalCommandHandler<LoginCommand>>();
+
+            kernel.Bind<ICommandHandler<LoginCommand>>().To<TransactionalCommandHandler<LoginCommand>>();
         }
     }
 }
