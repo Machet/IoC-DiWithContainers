@@ -9,6 +9,7 @@ namespace IoCCinema.App_Start
     using CompositionRoot;
     using DataAccess;
     using DataAccess.Business;
+    using DataAccess.AuditLogging;
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
     using Ninject;
     using Ninject.Extensions.Conventions;
@@ -53,8 +54,10 @@ namespace IoCCinema.App_Start
         private static void RegisterServices(IKernel kernel)
         {
             var businessAssembly = typeof(ICommand).Assembly;
+            var dataAccessAssembly = typeof(CinemaContext).Assembly;
 
             kernel.Bind<CinemaContext>().ToSelf().InRequestScope();
+            kernel.Bind<AuditLogger>().ToSelf().InRequestScope();
             kernel.Bind<ICurrentUserProvider>().To<ContextUserProvider>().InSingletonScope();
             kernel.Bind<IWinChanceCalculatorFactory>().To<NinjectWinChanceCalculatorFactory>();
 
@@ -74,7 +77,17 @@ namespace IoCCinema.App_Start
                 .SelectAllClasses()
                 .EndingWith("CommandHandler")
                 .BindSingleInterface()
-                .Configure(r => r.WhenInjectedInto(typeof(TransactionalCommandHandler<>))));
+                .Configure(r => r.WhenParentNamed("auditingCommand")));
+
+            kernel.Bind(x => x.From(dataAccessAssembly)
+                .SelectAllClasses()
+                .Where(t => !t.IsGenericType && t.Name.Contains("Audit") && t.Name.Contains("CommandHandler"))
+                .BindSingleInterface()
+                .Configure(r => r.WhenInjectedInto(typeof(TransactionalCommandHandler<>)).Named("auditingCommand")));
+
+            kernel.Bind(typeof(ICommandHandler<>)).To(typeof(AuditingCommandHandler<>))
+                .WhenInjectedInto(typeof(TransactionalCommandHandler<>))
+                .Named("auditingCommand"); ;
 
             kernel.Bind(typeof(ICommandHandler<>)).To(typeof(TransactionalCommandHandler<>));
         }
