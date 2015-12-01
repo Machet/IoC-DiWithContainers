@@ -16,6 +16,9 @@ namespace IoCCinema.App_Start
     using Ninject.Web.Common;
     using System;
     using System.Web;
+    using Business;
+    using Business.Notifications;
+    using Business.DomainEvents;
 
     public static class NinjectWebCommon
     {
@@ -63,6 +66,11 @@ namespace IoCCinema.App_Start
 
             kernel.Bind(x => x.From(businessAssembly)
                 .SelectAllClasses()
+                .InheritedFrom<INotificationSender>()
+                .BindSingleInterface());
+
+            kernel.Bind(x => x.From(businessAssembly)
+                .SelectAllClasses()
                 .InheritedFrom<IWinChanceCalculator>()
                 .BindSingleInterface()
                 .Configure((r, type) => r.Named(type.Name.Replace("UserWinChanceCalculator", string.Empty))));
@@ -90,6 +98,17 @@ namespace IoCCinema.App_Start
                 .Named("auditingCommand"); ;
 
             kernel.Bind(typeof(ICommandHandler<>)).To(typeof(TransactionalCommandHandler<>));
+
+            kernel.Bind(x => x.From(businessAssembly)
+                .SelectAllClasses()
+                .InheritedFrom(typeof(IDomainEventHandler<>))
+                .BindAllInterfaces()
+                .Configure(c => c.WhenInjectedInto(typeof(AuditingEventHandler<>)).InRequestScope()));
+
+            kernel.Bind(typeof(IDomainEventHandler<>)).To(typeof(AuditOccurrenceEventHandler<>)).InRequestScope();
+            kernel.Bind(typeof(IDomainEventHandler<>)).To(typeof(AuditingEventHandler<>)).InRequestScope();
+
+            DomainEventBus.Current = new NinjectDomainEventBus(kernel);
         }
     }
 }

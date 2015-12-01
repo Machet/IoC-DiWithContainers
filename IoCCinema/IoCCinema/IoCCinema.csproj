@@ -141,6 +141,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="CompositionRoot\ContextUserProvider.cs" />
+    <Compile Include="CompositionRoot\NinjectDomainEventBus.cs" />
     <Compile Include="CompositionRoot\NinjectWinChanceCalculatorFactory.cs" />
     <Compile Include="Controllers\AuditController.cs" />
     <Compile Include="Controllers\ReservationController.cs" />
