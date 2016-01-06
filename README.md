@@ -5,6 +5,13 @@ Before tearing project apart play with it a little. Check what is happening when
 
 When you are ready delete everything from `IoCCinema.CompositionRoot` except `ContextUserProvider` class, then remove lines containing errors. You are ready to introduce chosen container - download it from nuget along with Mvc supporting library if exist.
 
+## Help for containers
+* [Autofac](https://github.com/Machet/IoC-DiWithContainers/wiki/Autofac)
+* [Ninject](https://github.com/Machet/IoC-DiWithContainers/wiki/Ninject)
+* [Simple Injector](https://github.com/Machet/IoC-DiWithContainers/wiki/Simple-Injector)
+* [Unity](https://github.com/Machet/IoC-DiWithContainers/wiki/Unity)
+* [Windsor](https://github.com/Machet/IoC-DiWithContainers/wiki/Windsor)
+
 ## Composing application
 #### Task 1 - Displaying list of movies
 First task is just to display list of all movies. To perform this HomeController needs be created along with MovieViewRepository. When classes are properly wired make sure that CinemaContext is properly disposed after each request.
