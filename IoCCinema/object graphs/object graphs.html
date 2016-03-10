@@ -348,7 +348,8 @@
     <article>
         <h1>Task 6**</h1>
         <div class="eventHandler important">
-            <label>AuditingEventHandler&lt;T&gt;</label>
+            <label>AuditingEventHandler
+            &lt;SeatAssignedToUser&gt;</label>
             <div class="eventHandler">
                 <label>SendNotificationWhenSeatTaken</label>
                 <div class="service">
@@ -357,11 +358,31 @@
             </div>
         </div>
         <div class="eventHandler">
-            <label>AuditOccurrenceEventHandler&lt;T&gt;</label>
+            <label>AuditOccurrenceEventHandler
+            &lt;SeatAssignedToUser&gt;</label>
             <div class="service">
                 ...
             </div>
         </div>
+        <aside>
+            <div class="eventHandler important">
+                <label>AuditingEventHandler
+                &lt;FreeTicketGranted&gt;</label>
+                <div class="eventHandler">
+                    <label>SendNotificationWhenSeatTaken</label>
+                    <div class="service">
+                        ...
+                    </div>
+                </div>
+            </div>
+            <div class="eventHandler">
+                <label>AuditOccurrenceEventHandler
+                &lt;FreeTicketGranted&gt;</label>
+                <div class="service">
+                    ...
+                </div>
+            </div>
+        </aside>
     </article>
 </body>
 </html>
