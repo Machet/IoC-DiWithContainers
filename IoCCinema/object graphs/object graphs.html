@@ -1,0 +1,367 @@
+<html>
+<head>
+    <style>
+        h1 {
+            margin-top: 30px;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        article {
+            font-family: Verdana;
+            font-size: 15px;
+            width: 350px;
+            margin-left: 50px;
+            position: relative;
+        }
+
+        aside {
+            width: 350px;
+            position: absolute;
+            left: 400px;
+            top: 32px;
+            padding: 0;
+            margin: 0;
+        }
+
+        div {
+            border: 1px solid;
+            padding: 8px 13px;
+            margin-top: 10px;
+        }
+
+        label + div {
+            margin-top: 15px;
+        }
+
+        .controller {
+            color: #3F6BB2;
+            border-color: #3F6BB2;
+            background-color: #A7E2FF;
+        }
+
+        .repository {
+            color: #009933;
+            border-color: #009933;
+            background-color: #c2f9c2;
+        }
+
+        .context {
+            color: #1E8440;
+            border-color: #1E8440;
+            background-color: #a9fedc;
+        }
+
+        .commandHandler, .eventHandler {
+            color: #995c00;
+            border-color: #995c00;
+            background-color: #f6e5a8;
+        }
+
+            .commandHandler .commandHandler,
+            .eventHandler .eventHandler {
+                color: #804d00;
+                border-color: #804d00;
+                background-color: #ffe46a;
+            }
+
+                .commandHandler .commandHandler .commandHandler,
+                .eventHandler .eventHandler .eventHandler {
+                    color: #663d00;
+                    border-color: #663d00;
+                    background-color: #fdcb51;
+                }
+
+        .service {
+            color: #717E7F;
+            border-color: #717E7F;
+            background-color: #ecf0f1;
+        }
+
+        .factory, .provider {
+            color: #4c4cf6;
+            border-color: #4c4cf6;
+            background-color: #dadaf7;
+        }
+
+        .list {
+            color: #7f8c8d;
+            border-color: #7f8c8d;
+            background-color: #f9fafa;
+            border: 2px dashed;
+        }
+
+        .important > label,
+        .custom > label {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <article>
+        <h1>Task 1</h1>
+        <div class="controller">
+            <label>HomeController</label>
+            <div class="repository">
+                <label>EfMovieViewRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article>
+        <h1>Task 2</h1>
+        <div class="controller">
+            <label>LoginController</label>
+            <div class="repository">
+                <label>EfLoginRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+            <div class="commandHandler">
+                <label>TransactionalCommandHandler
+                &lt;LoginCommand&gt;</label>
+                <div class="commandHandler">
+                    <label>LoginCommandHandler</label>
+                    <div class="repository">
+                        <label>EfAuthenticationRepository</label>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                    <div class="provider">
+                        <label>ContextUserProvider</label>
+                    </div>
+                    <div class="service">
+                        <label>StringHasher</label>
+                    </div>
+                </div>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article>
+        <h1>Task 3</h1>
+        <div class="controller">
+            <label>NotificationController</label>
+            <div class="repository">
+                <label>EfNotificationViewRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+        <div class="controller">
+            <label>AuditController</label>
+            <div class="repository">
+                <label>EfAuditViewRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article>
+        <h1>Task 4</h1>
+        <div class="controller">
+            <label>ReservationController</label>
+            <div class="commandHandler">
+                <label>TransactionalCommandHandler
+                &lt;ReserveSeatCommand&gt;</label>
+                <div class="commandHandler">
+                    <label>ReserveSeatCommandHandler</label>
+                    <div class="repository">
+                        <label>EfUserRepository</label>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                    <div class="repository">
+                        <label>EfRoomRepository</label>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                    <div class="factory custom">
+                        <label>Custom IWinChanceCalculatorFactory</label>
+                    </div>
+                </div>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+        <aside>
+            <div class="service">
+                <label>GoldUserWinChanceCalculator</label>
+                <div class="repository">
+                    <label>EfUserRepository</label>
+                    <div class="context">
+                        <label>CinemaContext</label>
+                    </div>
+                </div>
+            </div>
+            <div class="service">
+                <label>SilverUserWinChanceCalculator</label>
+                <div class="repository">
+                    <label>EfUserRepository</label>
+                    <div class="context">
+                        <label>CinemaContext</label>
+                    </div>
+                </div>
+            </div>
+            <div class="service">
+                <label>RegularUserWinChanceCalculator</label>
+            </div>
+        </aside>
+    </article>
+
+    <article>
+        <h1>Task 5</h1>
+        <div class="controller">
+            <label>...</label>
+            <div class="commandHandler">
+                <label>TransactionalCommandHandler&lt;T&gt;</label>
+                <div class="commandHandler">
+                    <label>AuditingCommandHandler&lt;T&gt;</label>
+                    <div class="commandHandler">
+                        <label>ICommandHandler&lt;T&gt;</label>
+                        <div class="service">
+                            ...
+                        </div>
+                    </div>
+                    <div class="service">
+                        <label>AuditLogger</label>
+                        <div class="provider">
+                            <label>ContextUserProvider</label>
+                        </div>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+
+        <h1>Task 5*</h1>
+        <div class="controller">
+            <label>...</label>
+            <div class="commandHandler">
+                <label>TransactionalCommandHandler
+                &lt;LoginCommand&gt;</label>
+                <div class="commandHandler">
+                    <label>AuditingLoginCommandHandler</label>
+                    <div class="commandHandler">
+                        <label>LoginCommandHandler</label>
+                        <div class="service">
+                            ...
+                        </div>
+                    </div>
+                    <div class="service">
+                        <label>AuditLogger</label>
+                        <div class="provider">
+                            <label>ContextUserProvider</label>
+                        </div>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article>
+        <h1>Task 6</h1>
+        <div class="service custom">
+            <label>Custom DomainEventBus</label>
+        </div>
+        <div class="eventHandler">
+            <label>SendNotificationWhenSeatTaken</label>
+            <div class="repository">
+                <label>EfUserRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+            <div class="repository">
+                <label>EfRoomRepository</label>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+            <div class="list">
+                <div class="service">
+                    <label>EmailNotificationSender</label>
+                    <div class="repository">
+                        <label>EfNotificationRepository</label>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                    <div class="repository">
+                        <label>EfTemplateRepository</label>
+                    </div>
+                </div>
+                <div class="service">
+                    <label>SmsNotificationSender</label>
+                    <div class="repository">
+                        <label>EfNotificationRepository</label>
+                        <div class="context">
+                            <label>CinemaContext</label>
+                        </div>
+                    </div>
+                    <div class="repository">
+                        <label>EfTemplateRepository</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="eventHandler">
+            <label>AuditOccurrenceEventHandler&lt;T&gt;</label>
+            <div class="service">
+                <label>AuditLogger</label>
+                <div class="provider">
+                    <label>ContextUserProvider</label>
+                </div>
+                <div class="context">
+                    <label>CinemaContext</label>
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article>
+        <h1>Task 6**</h1>
+        <div class="eventHandler important">
+            <label>AuditingEventHandler&lt;T&gt;</label>
+            <div class="eventHandler">
+                <label>SendNotificationWhenSeatTaken</label>
+                <div class="service">
+                    ...
+                </div>
+            </div>
+        </div>
+        <div class="eventHandler">
+            <label>AuditOccurrenceEventHandler&lt;T&gt;</label>
+            <div class="service">
+                ...
+            </div>
+        </div>
+    </article>
+</body>
+</html>
