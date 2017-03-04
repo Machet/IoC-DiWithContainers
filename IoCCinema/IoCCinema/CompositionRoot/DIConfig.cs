@@ -43,11 +43,8 @@ namespace IoCCinema.CompositionRoot
                 .AsImplementedInterfaces()
                 .InstancePerRequest();
 
-            builder.RegisterAssemblyTypes(businessAssembly)
-                .Where(t => t.IsClosedTypeOf(typeof(ICommandHandler<>)))
-                .As(t => t.GetInterfaces()
-                    .Where(i => i.IsClosedTypeOf(typeof(ICommandHandler<>)))
-                    .Select(i => new KeyedService("default", i)));
+			builder.RegisterAssemblyTypes(businessAssembly)
+				.AsClosedTypesOf(typeof(ICommandHandler<>), "default");
 
             builder.RegisterGenericDecorator(
                 typeof(AuditingCommandHandler<>),
@@ -72,9 +69,7 @@ namespace IoCCinema.CompositionRoot
             builder.RegisterGeneric(typeof(AuditOccurrenceEventHandler<>)).AsImplementedInterfaces();
 
             builder.RegisterAssemblyTypes(businessAssembly)
-                .Where(t => t.IsClosedTypeOf(typeof(IDomainEventHandler<>)))
-                .As(t => t.GetInterfaces()
-                    .Select(i => new KeyedService("defaultEvent", i)))
+				.AsClosedTypesOf(typeof(ICommandHandler<>), "default")
                 .PreserveExistingDefaults()
                 .InstancePerRequest();
 
