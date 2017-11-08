@@ -1,8 +1,8 @@
 ﻿using IoCCinema.Business;
 using IoCCinema.Business.DomainEvents;
 using IoCCinema.DataAccess.AuditLogging;
-using Microsoft.Practices.Unity;
 using System.Collections.Generic;
+using Unity;
 
 namespace IoCCinema.CompositionRoot
 {

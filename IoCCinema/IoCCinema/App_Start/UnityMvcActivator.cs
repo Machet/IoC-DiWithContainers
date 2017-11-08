@@ -1,9 +1,9 @@
 using IoCCinema.CompositionRoot;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Mvc;
 using Microsoft.Web.Infrastructure.DynamicModuleHelper;
 using System.Linq;
 using System.Web.Mvc;
+using Unity;
+using Unity.AspNet.Mvc;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(IoCCinema.App_Start.UnityWebActivator), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(IoCCinema.App_Start.UnityWebActivator), "Shutdown")]

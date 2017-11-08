@@ -1,6 +1,6 @@
 ﻿using IoCCinema.Business;
 using IoCCinema.Business.Lotery;
-using Microsoft.Practices.Unity;
+using Unity;
 
 namespace IoCCinema.CompositionRoot
 {

@@ -7,10 +7,14 @@ using IoCCinema.Business.Notifications;
 using IoCCinema.DataAccess;
 using IoCCinema.DataAccess.AuditLogging;
 using IoCCinema.DataAccess.Business;
-using Microsoft.Practices.Unity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity;
+using Unity.AspNet.Mvc;
+using Unity.RegistrationByConvention;
+using Unity.Lifetime;
+using Unity.Injection;
 
 namespace IoCCinema.CompositionRoot
 {
